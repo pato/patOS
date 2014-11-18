@@ -1,0 +1,29 @@
+Due : accepted proposal (Tuesday 11/25)
+      working code and report (Friday 12/5)
+
+Assignment:
+
+Propose and build something exciting on top of and/or inside the kernel
+
+Rules:
+
+    - You can work individually or in groups
+    - The larger the group, the more exciting your proposal needs to be
+    - All group members will get the same grade (difficulty * score / count)
+    - You need to submit a written proposal by Friday (11/21)
+        * one paragraph
+        * team members
+    - We will discuss the proposal and finalize it by Tuesday (11/25)
+
+Examples:
+
+    - build a log structured file system
+    - complete the file system implementation
+    - add threads
+    - add interesting features to the shell
+    - run busybox
+    - support C++ exceptions
+    - ...
+
+Please try to propose and work on something that you'll find exciting
+and interesting. Be creative and have fun.
