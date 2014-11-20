@@ -1,0 +1,18 @@
+Team Members: Patricio Lankenau
+
+Proposal:
+I want to build a graphical window manager for our OS. This will
+started by init and will the main user process.  It can be used to spawn
+windows, which will default open to a shell. It will act like a tiling window
+manager in the sense that the screen will always be used entirely. The space
+will be evenly divided between all the current screens, and dynamically divide
+as more windows are open.
+
+This will require: 
++ Drawing to screen (probably requires switching to graphic mode at boot)
++ Writing text to screen (instead of over serial)
++ Creating the concept of windows
++ Creating the concept of focused window
++ Create a way for the user to switch windows
+
+What do you think of the idea? Do you think it is feasible for me to do this?
