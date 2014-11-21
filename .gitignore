@@ -11,3 +11,4 @@ test.out
 *.pyc
 *.vim
 tester.sh
+.nfs*
