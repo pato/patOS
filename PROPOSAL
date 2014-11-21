@@ -15,4 +15,11 @@ This will require:
 + Creating the concept of focused window
 + Create a way for the user to switch windows
 
-What do you think of the idea? Do you think it is feasible for me to do this?
+What I have so far is totally preliminary and for fun, but it is indicative of what I want to do:
+
+Very simple window system
+Drawing to the VGA memory
+Getting input (still from serial at the moment)
+Some basic wrapping (want to rewrite)
+
+PS: You can run it with `make run`
