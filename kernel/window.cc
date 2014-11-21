@@ -1,8 +1,3 @@
-/** Works Cited **
- * Learned about the constructor syntax
- *  http://www.cplusplus.com/doc/tutorial/classes/
- */
-
 #include "window.h"
 #include "machine.h"
 
