@@ -19,6 +19,7 @@ private:
     int cRow, cCol; /* cursor row and column */
     void put(int r, int c, char ch);
     void put(int r, int c, char ch, int bg, int fg);
+    void cursor(int r, int c);
     void drawTitle();
 public:
     Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg);

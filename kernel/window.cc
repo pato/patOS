@@ -65,14 +65,20 @@ void Window::put(int r, int c, char ch) {
   this->vga.put(this->row + r, this->column + c, ch, this->bg, this->fg); 
 }
 
+void Window::cursor(int r, int c) {
+  this->vga.cursor(r, c, this->bg, this->fg);
+}
+
 void Window::write(char c) {
   if (cCol + 1 > width) {
     Window::writeLine();
   } else {
     cCol++;
   }
+  Window::cursor(cRow, cCol + 1);
   Window::put(cRow, cCol, c);
 }
+
 void Window::writeLine() {
   if (cRow + 1 > height) {
     Window::clear(); //TODO: not loose all the text

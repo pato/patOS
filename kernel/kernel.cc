@@ -69,6 +69,7 @@ void kernelMain(void) {
 
     /* Initialize video drivers */
     VGA vga;
+
     Process::window = new Window(vga, (const char*)"shell", 0, 0, 25, 80, VGA::BLUE, VGA::WHITE);
 
     /* Make the rest of memory available for VM */
