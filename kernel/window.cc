@@ -66,7 +66,10 @@ void Window::put(int r, int c, char ch) {
 }
 
 void Window::cursor(int r, int c) {
-  this->vga.cursor(r, c, this->bg, this->fg);
+  if (r < 0 || c < 0 || r >= this->height || c >= this->width) {
+    return;
+  }
+  this->vga.cursor(this->row + r, this->column + c, this->bg, this->fg);
 }
 
 void Window::write(char c) {
