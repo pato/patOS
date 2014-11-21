@@ -70,7 +70,7 @@ void kernelMain(void) {
     /* Initialize video drivers */
     VGA vga;
 
-    Window(vga, "PanicOS - version 0.0.0.0.1", 0, 0, 25, 80, VGA::GREEN, VGA::WHITE);
+    Window(vga, "PatOS - version 0.0.0.0.1", 0, 0, 25, 80, VGA::GREEN, VGA::WHITE);
 
     Process::window = new Window(vga, (const char*)"shell", 5, 5, 20, 70, VGA::BLUE, VGA::WHITE);
 
