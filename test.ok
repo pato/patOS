@@ -1,0 +1,75 @@
+spawn qemu-system-x86_64 -nographic --serial mon:stdio -hdc kernel/kernel.img -hdd fat439/user.img
+x
+What just happened? Who am I? Why am I here?
+I am K439, welcome to my world
+I have a heap
+[] Process tracing enabled
+Pit::init freq=1000HZ, divide=1193
+Pit::init requested:1000Hz, actual:1000Hz
+[] loaded driver for hdd
+[] initialized root filesystem
+[] Let there be processes
+shell> ls
+shutdown
+shutdown.c
+shell.c
+shell
+ls.c
+ls
+echo
+echo.c
+cat.c
+cat
+f1.txt
+f2.txt
+panic
+shell> echo This is cool
+This is cool
+shell>     echo    I know    how  to         handle  spaces   
+I know how to handle spaces
+shell> cat f1.txt
+This is f1
+It contains text
+shell>  f1.txt
+This is f1
+It contains text
+shell> cat f1.txt f2.txt
+This is f1
+It contains text
+0
+11
+222
+3333
+44444
+555555
+shell> f2.txt f1.txt
+0
+11
+222
+3333
+44444
+555555
+shell> cat f1.txt f2.txt f1.txt f2.txt
+This is f1
+It contains text
+0
+11
+222
+3333
+44444
+555555
+This is f1
+It contains text
+0
+11
+222
+3333
+44444
+555555
+shell> gcc
+gcc: command not found
+shell> cat notThere
+cat: notThere: No such file or directory
+shell> shutdown
+
+*** System Shutdown ***
