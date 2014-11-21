@@ -1,6 +1,7 @@
 default : all;
 
-run : test;
+run : all
+	qemu-system-x86_64 -curses --serial mon:stdio -hdc kernel/kernel.img -hdd fat439/user.img
 
 test : all
 	make -C kernel kernel.img
