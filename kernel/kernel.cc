@@ -72,7 +72,12 @@ void kernelMain(void) {
 
     Window(vga, "PatOS - version 0.0.0.0.1", 0, 0, 25, 80, VGA::GREEN, VGA::WHITE);
 
-    Process::window = new Window(vga, (const char*)"shell", 5, 5, 20, 70, VGA::BLUE, VGA::WHITE);
+    int width = (80 - 3) / 2;
+    int height = 25 - 3;
+
+    //Process::window = new Window(vga, (const char*)"shell", 5, 5, 20, 70, VGA::BLUE, VGA::WHITE);
+    Process::window = new Window(vga, (const char*)"shell", 2, 1, height, width, VGA::BLUE, VGA::WHITE);
+    Window welcome = Window(vga, (const char*)"welcome", 2, 2 + width, height, width, VGA::LIGHT_RED, VGA::WHITE);
 
     /* Make the rest of memory available for VM */
     PhysMem::init(0x200000,0x400000);

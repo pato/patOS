@@ -13,6 +13,7 @@ struct TextBuf {
 class Window {
 private:
     VGA& vga;
+    TextBuf* textBuf; //TODO: STARTHERE: create text buffer | actually just store the matrix as member
     int bg, fg;
     int row, column, height, width;
     const char* name; /* window title */
@@ -23,6 +24,7 @@ private:
     void drawTitle();
 public:
     Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg);
+    ~Window();
     void clear();
     void fill(char c);
     void write(char c);

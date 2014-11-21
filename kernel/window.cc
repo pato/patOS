@@ -24,6 +24,10 @@ Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, i
   Window::clear();
 }
 
+Window::~Window() {
+  //delete this->charBuf;
+}
+
 void Window::clear() {
   for (uint8_t c = 0; c < this->width; c++) {
     for (uint8_t r = 0; r < this->height; r++) {
