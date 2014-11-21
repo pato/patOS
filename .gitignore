@@ -1,0 +1,13 @@
+test.diff
+test.out
+*.out
+*.o
+*.d
+.*.swp
+*.session
+*.swp
+*.swo
+*.py
+*.pyc
+*.vim
+tester.sh
