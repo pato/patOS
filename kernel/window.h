@@ -30,6 +30,7 @@ public:
     void fill(char c);
     void seek(int r, int c);
     void write(char c);
+    void write(const char* c);
     void writeLine();
 };
    

@@ -55,6 +55,8 @@ void Window::drawTitle() {
 
 void Window::seek(int r, int c) {
   if (!boundCheck(r, c)) return;
+  this->cRow = r;
+  this->cCol = c;
 }
 
 void Window::put(int r, int c, char ch, int bg, int fg) {
@@ -69,6 +71,12 @@ void Window::put(int r, int c, char ch) {
 void Window::cursor(int r, int c) {
   if (!boundCheck(r, c)) return;
   this->vga.cursor(this->row + r, this->column + c, this->bg, this->fg);
+}
+
+void Window::write(const char* str) {
+  for (int i = 0; str[i] != '\0'; i++) {
+    write(str[i]);
+  }
 }
 
 void Window::write(char c) {
