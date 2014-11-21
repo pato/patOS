@@ -6,6 +6,9 @@
 #define ROWS 25
 #define COLS 80
 
+#define TITLEFG VGA::BLACK
+#define TITLEBG VGA::WHITE
+
 class VGA {
 public:
     static int BLACK;

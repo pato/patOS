@@ -15,6 +15,9 @@
 #include "idle.h"
 #include "window.h"
 #include "vga.h"
+#include "process.h"
+
+Window* Process::window;
 
 
 extern "C"
@@ -60,23 +63,13 @@ void kernelMain(void) {
     /* Initialize system calls */
     Syscall::init();
 
-    /* Initialize video drivers */
-    VGA vga;
-    Window w0(vga, 0,0,25,80,VGA::BLUE,VGA::WHITE);
-    Window w1(vga, 10,10,10,10,VGA::RED,VGA::GREEN);
-    Window w2(vga, 10,40,10,10,VGA::BROWN,VGA::BLACK);
-
-    w0.clear();
-    w1.clear();
-    w2.clear();
-
-    w0.fill('0');
-    w1.fill('1');
-    w2.fill('2');
-
     /* Initialize the heap */
     Heap::init((void*)0x100000,0x100000);
     Debug::printf("I have a heap\n");
+
+    /* Initialize video drivers */
+    VGA vga;
+    Process::window = new Window(vga, (const char*)"shell", 0, 0, 25, 80, VGA::BLUE, VGA::WHITE);
 
     /* Make the rest of memory available for VM */
     PhysMem::init(0x200000,0x400000);

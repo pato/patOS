@@ -12,8 +12,16 @@
 U8250pp *U8250pp::it = nullptr;
 
 void U8250pp::put(char c) {
-  VGA vga;
-  vga.put(10, 10, c, VGA::BLUE, VGA::WHITE);
+  if (Process::current) {
+    if (c == '\r' || c == '\n') {
+      Process::window->writeLine();
+    } else {
+      Process::window->write(c);
+    }
+  } else {
+    while (!(inb(0x3F8+5) & 0x20));
+    outb(0x3F8,c);
+  }
 }
 
 char U8250pp::get() {

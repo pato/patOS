@@ -9,6 +9,7 @@
 #include "vmm.h"
 #include "resource.h"
 #include "table.h"
+#include "window.h"
 
 class Timer;
 
@@ -78,7 +79,11 @@ public:
     uint32_t iCount;
 
     // The current process, nullptr -> none
-    static Process *current;                  
+    static Process* current;                  
+
+    // current window
+    // TODO: not static, but per process
+    static Window* window;
 
     // an optional name
     const char* name;

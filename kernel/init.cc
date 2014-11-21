@@ -3,6 +3,7 @@
 #include "machine.h"
 #include "fs.h"
 #include "libk.h"
+#include "process.h"
 
 Init::Init() : Process("init",nullptr) {
 }

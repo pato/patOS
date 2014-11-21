@@ -6,9 +6,11 @@
 #include "window.h"
 #include "machine.h"
 
-Window::Window(VGA& vga, int r, int c, int h, int w, int bg, int fg)
+
+Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg)
   : vga(vga) {
 
+  this->name = name;
   this->row = r;
   this->column = c;
   this->height = h;
@@ -16,6 +18,10 @@ Window::Window(VGA& vga, int r, int c, int h, int w, int bg, int fg)
 
   this->bg = bg;
   this->fg = fg;
+
+  this->cRow = 1;
+  this->cCol = 0;
+  Window::clear();
 }
 
 void Window::clear() {
@@ -24,6 +30,7 @@ void Window::clear() {
       Window::put(r, c, ' ');
     }
   }
+  drawTitle();
 }
 
 void Window::fill(char ch) {
@@ -34,10 +41,45 @@ void Window::fill(char ch) {
     }
 }
 
+void Window::drawTitle() {
+  int i = 0;
+  for (; name[i] != '\0'; i++)
+    Window::put(0, i, name[i], TITLEBG, TITLEFG);
+  for (; i < width; i++) 
+    Window::put(0, i, ' ', TITLEBG, TITLEFG);
+}
+
+void Window::put(int r, int c, char ch, int bg, int fg) {
+  // Ensure that the we really only write to this window
+  if (r < 0 || c < 0 || r >= this->height || c >= this->width) {
+    return;
+  }
+  this->vga.put(this->row + r, this->column + c, ch, bg, fg); 
+}
+
 void Window::put(int r, int c, char ch) {
   // Ensure that the we really only write to this window
   if (r < 0 || c < 0 || r >= this->height || c >= this->width) {
     return;
   }
   this->vga.put(this->row + r, this->column + c, ch, this->bg, this->fg); 
+}
+
+void Window::write(char c) {
+  if (cCol + 1 > width) {
+    Window::writeLine();
+  } else {
+    cCol++;
+  }
+  Window::put(cRow, cCol, c);
+}
+void Window::writeLine() {
+  if (cRow + 1 > height) {
+    Window::clear(); //TODO: not loose all the text
+    cCol = 0;
+    cRow = 1;
+  } else {
+    cRow++;
+    cCol = 0;
+  }
 }
