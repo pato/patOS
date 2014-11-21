@@ -22,11 +22,13 @@ private:
     void put(int r, int c, char ch, int bg, int fg);
     void cursor(int r, int c);
     void drawTitle();
+    bool boundCheck(int r, int c);
 public:
     Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg);
     ~Window();
     void clear();
     void fill(char c);
+    void seek(int r, int c);
     void write(char c);
     void writeLine();
 };

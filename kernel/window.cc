@@ -23,6 +23,11 @@ Window::~Window() {
   //delete this->charBuf;
 }
 
+bool Window::boundCheck(int r, int c) {
+  // Ensure that the we really only write to this window
+  return !(r < 0 || c < 0 || r >= this->height || c >= this->width);
+}
+
 void Window::clear() {
   for (uint8_t c = 0; c < this->width; c++) {
     for (uint8_t r = 0; r < this->height; r++) {
@@ -48,26 +53,21 @@ void Window::drawTitle() {
     Window::put(0, i, ' ', TITLEBG, TITLEFG);
 }
 
+void Window::seek(int r, int c) {
+  if (!boundCheck(r, c)) return;
+}
+
 void Window::put(int r, int c, char ch, int bg, int fg) {
-  // Ensure that the we really only write to this window
-  if (r < 0 || c < 0 || r >= this->height || c >= this->width) {
-    return;
-  }
   this->vga.put(this->row + r, this->column + c, ch, bg, fg); 
 }
 
 void Window::put(int r, int c, char ch) {
-  // Ensure that the we really only write to this window
-  if (r < 0 || c < 0 || r >= this->height || c >= this->width) {
-    return;
-  }
+  if (!boundCheck(r, c)) return;
   this->vga.put(this->row + r, this->column + c, ch, this->bg, this->fg); 
 }
 
 void Window::cursor(int r, int c) {
-  if (r < 0 || c < 0 || r >= this->height || c >= this->width) {
-    return;
-  }
+  if (!boundCheck(r, c)) return;
   this->vga.cursor(this->row + r, this->column + c, this->bg, this->fg);
 }
 
