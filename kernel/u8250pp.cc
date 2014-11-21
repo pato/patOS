@@ -13,7 +13,7 @@ U8250pp *U8250pp::it = nullptr;
 
 void U8250pp::put(char c) {
   if (Process::current) {
-    if (c == '\r' || c == '\n') {
+    if  (c == '\n') {
       Process::window->writeLine();
     } else {
       Process::window->write(c);
