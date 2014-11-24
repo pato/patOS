@@ -169,7 +169,8 @@ Fat439::Fat439(BlockDevice *dev) : FileSystem(dev) {
     }
 
     fat = new uint32_t[super.nBlocks];
-    openFiles = new OpenFilePtr[super.nBlocks]();
+    //openFiles = new OpenFilePtr[super.nBlocks]();
+    openFiles = new OpenFilePtr[super.nBlocks]; // CHANGE
     dev->readFully(512,fat,super.nBlocks * sizeof(uint32_t));
     rootdir = new Fat439Directory(this,super.root);
 }

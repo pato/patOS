@@ -3,7 +3,8 @@
 #include "process.h"
 
 Table::Table(long n) : Resource(ResourceType::TABLE),
-    n(n), array(new ResourcePtr[n]())
+    n(n), array(new ResourcePtr[n])
+    //n(n), array(new ResourcePtr[n]())
 {
 }
 
