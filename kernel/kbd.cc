@@ -25,7 +25,21 @@ void Keyboard::handler(void) {
 /* internal functions */
 static char ul(char x) {
     if (shift) {
-        return x - ('a' - 'A');
+      switch (x) {
+        case 'a' ... 'z' : return x - ('a' - 'A');
+        case '\'' : return '"';
+        case '\\' : return '|';
+        case '`'  : return '~';
+        case '-'  : return '_';
+        case '='  : return '+';
+        case '.'  : return '>';
+        case ','  : return '<';
+        case '/'  : return '?';
+        case ';'  : return ':';
+        case ']'  : return '}';
+        case '['  : return '{';
+        default: return 'X';
+      }
     } else {
         return x;
     }
@@ -38,7 +52,11 @@ static uint32_t kbd_get(void) {
     switch (b) {
     case 0x02 ... 0x0a : return('0' + b - 1); // 1-9
     case 0x0b : return('0');
-    case 0x0e: return(8); // backspace
+
+    case 0x0e : return(8); // backspace
+    case 0x1c : return(13); // new line
+    case 0x39 : return(32); // space
+
     case 0x10 : return(ul('q'));
     case 0x11 : return(ul('w'));
     case 0x12 : return(ul('e'));
@@ -49,7 +67,6 @@ static uint32_t kbd_get(void) {
     case 0x17 : return(ul('i'));
     case 0x18 : return(ul('o'));
     case 0x19 : return(ul('p'));
-    case 0x1c : return(13); // new line
     case 0x1e : return(ul('a'));
     case 0x1f : return(ul('s'));
     case 0x20 : return(ul('d'));
@@ -67,7 +84,17 @@ static uint32_t kbd_get(void) {
     case 0x31 : return(ul('n'));
     case 0x32 : return(ul('m'));
 
-    case 0x39 : return(32);
+    case 0x28 : return(ul('\''));
+    case 0x29 : return(ul('`'));
+    case 0x0C : return(ul('-'));
+    case 0x0D : return(ul('='));
+    case 0x33 : return(ul(','));
+    case 0x34 : return(ul('.'));
+    case 0x35 : return(ul('/'));
+    case 0x27 : return(ul(';'));
+    case 0x2B : return(ul('\\'));
+    case 0x1A : return(ul('['));
+    case 0x1B : return(ul(']'));
 
     case 0x2a: case 0x36: shift = 1; return 0;
     case 0xaa: case 0xb6: shift = 0; return 0;
