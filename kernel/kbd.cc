@@ -9,7 +9,7 @@ InputStream<char> *Keyboard::is;
 BB<char> *bb;
 
 void Keyboard::init() {
-    bb = new BB<char>(1);
+    bb = new BB<char>(10);
     is = bb;
 }
 
@@ -18,8 +18,8 @@ static char kbd_get(void);
 /* interrupt handler */
 void Keyboard::handler(void) {
     char ch = kbd_get();
-Debug::printf("%c\n",ch);
-    bb->put(ch);
+    if (ch >= 0)
+      bb->put(ch);
 }
 
 /* internal functions */
@@ -49,7 +49,7 @@ static char kbd_get(void) {
     case 0x17 : return(ul('i'));
     case 0x18 : return(ul('o'));
     case 0x19 : return(ul('p'));
-    case 0x1c : return('\n');
+    case 0x1c : return(13);
     case 0x1e : return(ul('a'));
     case 0x1f : return(ul('s'));
     case 0x20 : return(ul('d'));
@@ -67,9 +67,11 @@ static char kbd_get(void) {
     case 0x31 : return(ul('n'));
     case 0x32 : return(ul('m'));
 
-    case 0x2a: case 0x36: shift = 1; return 0;
-    case 0xaa: case 0xb6: shift = 0; return 0;
-    default: return 0;
+    case 0x39 : return(0);
+
+    case 0x2a: case 0x36: shift = 1; return -1;
+    case 0xaa: case 0xb6: shift = 0; return -1;
+    default: return -1;
     }
  
 }

@@ -7,6 +7,7 @@
 #include "err.h"
 #include "u8250.h"
 #include "libk.h"
+#include "kbd.h"
 
 void Syscall::init(void) {
     IDT::addTrapHandler(100,(uint32_t)syscallTrap,3);
@@ -136,7 +137,8 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
         }
     case 14: /* getchar */
         {
-              return U8250::it->get();
+          return Keyboard::is->get();
+              //return U8250::it->get();
         }
     default:
         Process::trace("syscall(%d,%d,%d)",num,a0,a1);

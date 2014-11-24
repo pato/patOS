@@ -25,6 +25,7 @@ void U8250pp::put(char c) {
 }
 
 char U8250pp::get() {
+  Debug::panic("should not be called");
     getMutex.lock();
     while (!(inb(0x3F8+5) & 0x01)) {
        Process::yield();

@@ -92,7 +92,7 @@ extern "C" void pic_irq(int irq) {
     Process::startIrq();
     switch (irq) {
     case 0: Pit::handler(); break;
-    case 1: /*Keyboard::handler();*/ break;
+    case 1: Keyboard::handler(); break;
     case 4: /*com1 */ break;
     case 15: /* ide */ break;
     default: Debug::printf("interrupt %d\n",irq);
