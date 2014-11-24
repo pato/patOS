@@ -90,7 +90,7 @@ void Window::write(char c) {
 }
 
 void Window::writeLine() {
-  if (cRow + 1 > height) {
+  if (cRow + 1 > (height - 1)) {
     Window::clear(); //TODO: not loose all the text
     cCol = 0;
     cRow = 1;
