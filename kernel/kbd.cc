@@ -50,6 +50,7 @@ static uint32_t kbd_get(void) {
     while ((inb(0x64) & 1) == 0);
     uint8_t b = inb(0x60);
     switch (b) {
+    //TODO: add support for shift and numbers
     case 0x02 ... 0x0a : return('0' + b - 1); // 1-9
     case 0x0b : return('0');
 
