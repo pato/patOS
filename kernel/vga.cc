@@ -22,9 +22,14 @@ int VGA::WHITE = 15;
 
 typedef struct Frame {
     uint8_t data[25][80][2];
+    //uint8_t data[200][320][2];
+    //uint8_t data[480][640][2];
+    //uint8_t data[480][1280][2];
+    //uint8_t data[][][2];
 } Frame;
 
 static Frame *frame = (Frame*) 0xb8000;
+//static Frame *frame = (Frame*) 0xA0000;
 
 static uint8_t attrs(int bg, int fg) {
     return (bg << 4) + fg;

@@ -29,6 +29,11 @@ start:
 	mov $0,%dx
 	int $0x14
 
+  # set the graphics mode
+  mov $0, %ah
+  mov $0x3, %al
+  int $0x10
+
 	# read the drive parameters
 	movw $30,0x6000
 	movb $0x48,%ah		# function code (read drive parameters)
