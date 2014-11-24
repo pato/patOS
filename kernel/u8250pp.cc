@@ -15,6 +15,8 @@ void U8250pp::put(char c) {
   if (Process::current) {
     if  (c == '\n') {
       Process::window->writeLine();
+    } else if (c == 13) {
+      // ignore these chars
     } else {
       Process::window->write(c);
     }
