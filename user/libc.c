@@ -21,7 +21,14 @@ char* gets() {
             if (p == 0) return 0;
         }
         char c = getchar();
-        putchar(c);
+        if (c == 8) { 
+          if (i > 0) {
+            p[i--] = 127;
+            continue;
+          }
+        } else {
+          putchar(c);
+        }
         if (c == 13) {
             puts("\n");
             p[i] = 0;
