@@ -105,7 +105,6 @@ void kernelMain(void) {
     welcome.writeLine(false);
     welcome.writeLine(false);
     welcome.writeLine(false);
-
     welcome.redrawTextBuf();
 
     /* Make the rest of memory available for VM */
