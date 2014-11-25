@@ -16,11 +16,13 @@ Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, i
 
   this->cRow = 1;
   this->cCol = 0;
+
+  this->textBuf = new TextBuffer();
   Window::clear();
 }
 
 Window::~Window() {
-  //delete this->charBuf;
+  delete textBuf;
 }
 
 bool Window::boundCheck(int r, int c) {
@@ -63,6 +65,10 @@ void Window::put(int r, int c, char ch, int bg, int fg) {
   this->vga.put(this->row + r, this->column + c, ch, bg, fg); 
 }
 
+void Window::put(int r, int c, char ch, int color) {
+  this->vga.put(this->row + r, this->column + c, ch, color); 
+}
+
 void Window::put(int r, int c, char ch) {
   if (!boundCheck(r, c)) return;
   this->vga.put(this->row + r, this->column + c, ch, this->bg, this->fg); 
@@ -81,21 +87,37 @@ void Window::write(const char* str) {
 
 void Window::write(char c) {
   if (cCol + 1 > width) {
-    Window::writeLine();
+    writeLine(true);
   } else {
+    cursor(cRow, cCol + 1);
+    put(cRow, cCol, c);
+    textBuf->write(c, bg, fg);
     cCol++;
   }
-  Window::cursor(cRow, cCol + 1);
-  Window::put(cRow, cCol, c);
 }
 
-void Window::writeLine() {
+void Window::writeLine(bool wrap) {
+  if (!wrap) textBuf->writeLine(); // if it's a real line break, write it to text buffer
   if (cRow + 1 > (height - 1)) {
-    Window::clear(); //TODO: not loose all the text
+    redrawTextBuf();
+    for (int j = 0; j<width; j++) put(cRow, j, ' ', bg, fg);
     cCol = 0;
-    cRow = 1;
   } else {
     cRow++;
     cCol = 0;
+  }
+}
+
+void Window::redrawTextBuf() {
+  for (int i = 1; i < height; i++) {
+    int j = 0;
+    for (; j < width; j++) {
+      uint32_t realRow = textBuf->getRealRow(i, height);
+      char c = textBuf->data[realRow][j][0];
+      uint8_t color = textBuf->data[realRow][j][1];
+      if (c == 0) break;
+      put(i, j, c, color);
+    }
+    for (;j<width;j++) put(i, j, ' ', bg, fg);
   }
 }

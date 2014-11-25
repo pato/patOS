@@ -14,7 +14,7 @@ U8250pp *U8250pp::it = nullptr;
 void U8250pp::put(char c) {
   if (Process::current) {
     if  (c == '\n') {
-      Process::window->writeLine();
+      Process::window->writeLine(false);
     } else if (c == 13) {
       // ignore these chars
     } else {

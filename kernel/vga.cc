@@ -37,4 +37,8 @@ void VGA::put(int r, int c, char ch, int bg, int fg) {
     frame->data[r][c][0] = ch;
     frame->data[r][c][1] = Frame::attrs(bg,fg);
 }
+void VGA::put(int r, int c, char ch, int color) {
+    frame->data[r][c][0] = ch;
+    frame->data[r][c][1] = color;
+}
 

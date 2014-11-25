@@ -41,6 +41,7 @@ public:
     static int WHITE;
 
     void put(int r, int c, char ch, int bg, int fg);
+    void put(int r, int c, char ch, int color);
     void cursor(int r, int c, int bg, int fg);
 };
 
