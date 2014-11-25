@@ -75,10 +75,11 @@ void kernelMain(void) {
     int width = (80 - 3) / 2;
     int height = 25 - 3;
 
-    //Process::window = new Window(vga, (const char*)"shell", 5, 5, 20, 70, VGA::BLUE, VGA::WHITE);
     Process::window = new Window(vga, (const char*)"shell", 2, 1, height, width, VGA::BLUE, VGA::WHITE);
-    Window welcome = Window(vga, (const char*)"welcome", 2, 2 + width, height, width, VGA::LIGHT_RED, VGA::WHITE);
 
+    /* Welcome Window */
+    // TODO: make this a user program
+    Window welcome = Window(vga, (const char*)"welcome", 2, 2 + width, height, width, VGA::LIGHT_RED, VGA::WHITE);
     welcome.writeLine(false);
     welcome.writeLine(false);
     welcome.writeLine(false);
