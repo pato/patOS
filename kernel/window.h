@@ -6,14 +6,10 @@
 #define MAXROWS 25
 #define MAXCOLS 80
 
-struct TextBuf {
-  char buffer[MAXROWS][MAXCOLS];
-};
-
 class Window {
 private:
     VGA& vga;
-    TextBuf* textBuf; //TODO: STARTHERE: create text buffer | actually just store the matrix as member
+    Frame* textBuf; //TODO: STARTHERE: create text buffer | actually just store the matrix as member
     int bg, fg;
     int row, column, height, width;
     const char* name; /* window title */
