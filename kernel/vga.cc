@@ -23,10 +23,6 @@ int VGA::WHITE = 15;
 static Frame *frame = (Frame*) 0xb8000;
 //static Frame *frame = (Frame*) 0xA0000;
 
-static uint8_t attrs(int bg, int fg) {
-    return (bg << 4) + fg;
-}
-
 void VGA::cursor(int row, int col, int bg, int fg) {
     int next = (row*80 + col);
 
@@ -34,11 +30,11 @@ void VGA::cursor(int row, int col, int bg, int fg) {
     outb(0x3d5,next);
     outb(0x3d4,0xe);
     outb(0x3d5,next>>8);
-    frame->data[row][col][1] = attrs(bg,fg);
+    frame->data[row][col][1] = Frame::attrs(bg,fg);
 }
 
 void VGA::put(int r, int c, char ch, int bg, int fg) {
     frame->data[r][c][0] = ch;
-    frame->data[r][c][1] = attrs(bg,fg);
+    frame->data[r][c][1] = Frame::attrs(bg,fg);
 }
 
