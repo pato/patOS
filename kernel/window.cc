@@ -109,6 +109,7 @@ void Window::writeLine(bool wrap) {
 }
 
 void Window::redrawTextBuf() {
+  // TODO: make it draw lines longer than width
   for (int i = 1; i < height; i++) {
     int j = 0;
     for (; j < width; j++) {
