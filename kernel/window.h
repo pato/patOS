@@ -22,7 +22,7 @@ struct TextBuffer {
       data[row][col][0] = ch;
       data[row][col][1] = Frame::attrs(bg, fg);
       col++;
-    } // TODO: deal with else
+    } // TODO: deal with else, might want to support longer lines, but can also define as limitation
   }
   void writeLine() { // only real line breaks
     row = (row + 1) % BUFFERHEIGHT;
@@ -42,7 +42,7 @@ struct TextBuffer {
 class Window {
 private:
     VGA& vga;
-    TextBuffer* textBuf; //TODO: STARTHERE: create text buffer | actually just store the matrix as member
+    TextBuffer* textBuf;
     int bg, fg;
     int row, column, height, width;
     const char* name; /* window title */
