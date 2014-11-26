@@ -1,4 +1,5 @@
 #include "libc.h"
+#include "libwin.h"
 
 #define ARGLIMSTEP 2
 #define ERR_FILE_NOT_FOUND (-1006)
@@ -79,6 +80,7 @@ void testSplit() {
 }
 
 int main() {
+  win_req("super shell");
   while (1) {
     puts("shell> ");
     char* in = gets();

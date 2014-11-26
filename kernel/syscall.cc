@@ -143,7 +143,8 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
     case 500: /* win_req */
         {
           char* name = (char*)a0;
-          Debug::panic("win_req(%s)", name);
+          Debug::printf("win_req(\"%s\")\n", name);
+          return 0;
         }
     default:
         Process::trace("syscall(%d,%d,%d)",num,a0,a1);
