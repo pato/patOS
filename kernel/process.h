@@ -57,16 +57,6 @@ public:
     // The current state
     State state;
 
-    // Window state
-    enum WindowState {
-      NOTCARE,
-      NEEDFOCUS,
-      HASFOCUS
-    };
-
-    // The current window state
-    WindowState windowState;
-
     // kernel stack for this process
     long *stack;
 
