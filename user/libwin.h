@@ -1,7 +1,7 @@
 #ifndef _LIBWIN_H_
 #define _LIBWIN_H_
 
-extern long win_req(const char* name);
+extern long win_req(char* name);
 extern long win_color16(int color);
 extern long win_color256(int r, int g, int b);
 extern long win_draw(char*** buf);

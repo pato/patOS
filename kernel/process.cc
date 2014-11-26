@@ -77,6 +77,7 @@ Process::Process(const char* name, Table *resources_) :
     iCount = 0;
     isKilled = false;
     killCode = 0;
+    hasWindow = false;
     disableCount = 0;
     stack = new long[FUDGE + STACK_LONGS];
     if (stack == 0) {

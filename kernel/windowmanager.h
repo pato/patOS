@@ -1,8 +1,11 @@
 #ifndef _WINDOWMANAGER_H_
 #define _WINDOWMANAGER_H_
 
-class WindowManager {
+#include "map.h"
 
+class WindowManager {
+  public:
+    Map<Window> windowMap;
 };
 
 #endif

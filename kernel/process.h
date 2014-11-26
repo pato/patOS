@@ -54,6 +54,8 @@ public:
         TERMINATED
     };
 
+    bool hasWindow;
+
     // The current state
     State state;
 
