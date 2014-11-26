@@ -70,6 +70,20 @@ template <class T> class Map {
       return nullptr;
     }
 
+    bool contains(uint32_t key) {
+      mutex.lock();
+      MapNode<T>* curr = head;
+      while (curr != nullptr) {
+        if (curr->key == key) {
+          mutex.unlock();
+          return true;
+        }
+        curr = curr->next;
+      }
+      mutex.unlock();
+      return false;
+    }
+
     bool remove(uint32_t key) {
       mutex.lock();
       if (head == nullptr) return false;
