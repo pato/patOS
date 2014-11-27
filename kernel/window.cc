@@ -1,6 +1,4 @@
 #include "window.h"
-#include "machine.h"
-
 
 Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg)
   : vga(vga) {
@@ -106,6 +104,17 @@ void Window::writeLine(bool wrap) {
     cRow++;
     cCol = 0;
   }
+}
+
+void Window::resize(int r, int c, int h, int w) {
+  this->row = r;
+  this->column = c;
+  this->width = w;
+  this->height = h;
+  redrawTextBuf();
+}
+void Window::resize(Layout* l) {
+  resize(l->r, l->c, l->h, l->w);
 }
 
 void Window::redrawTextBuf() {

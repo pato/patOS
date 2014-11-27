@@ -2,8 +2,9 @@
 #define _WINDOW_H_
 
 #include "vga.h"
+#include "layout.h"
 
-#define MAXROWS 25
+#define MAXROWS 25 /* also defined in layout.h */
 #define MAXCOLS 80
 #define BUFFERHEIGHT (MAXROWS * 2)
 #define BUFFERWIDTH MAXCOLS
@@ -62,6 +63,8 @@ public:
     void write(char c);
     void write(const char* c);
     void writeLine(bool wrap);
+    void resize(int r, int c, int h, int w);
+    void resize(Layout* layout);
     void redrawTextBuf();
 };
    
