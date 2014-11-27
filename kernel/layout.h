@@ -14,21 +14,21 @@
 
 struct Layout {
   int r, c, w, h;
-  Layout(int vsplits, int hsplits, int which) {
-    w = windowWidth(hsplits);
+  Layout(int vsplits, int hsplits, int vwhich, int hwhich) {
     h = windowHeight(vsplits);
-    r = windowRow(vsplits, which);
-    c = windowCol(hsplits, which);
+    w = windowWidth(hsplits);
+    r = windowRow(vsplits, vwhich);
+    c = windowCol(hsplits, hwhich);
   }
 
   int windowWidth(int splits) {
-    /* maxcols - left and right margins - individual margins */
-    return MAXCOLS - 2 - (splits - 1);
+    /* (maxcols - left and right margins - individual margins) / number of splits*/
+    return (MAXCOLS - 2 - (splits - 1)) / splits;
   }
 
   int windowHeight(int splits) {
-    /* maxrows - top bar - bottom and top margins - individual margins */
-    return MAXROWS - 3 - (splits - 1);
+    /* (maxrows - top bar - bottom and top margins - individual margins) / number of splits*/
+    return (MAXROWS - 3 - (splits - 1)) / splits;
   }
 
   int windowRow(int splits, int which) {
