@@ -118,6 +118,7 @@ void Window::resize(Layout* l) {
 }
 
 void Window::redrawTextBuf() {
+  clear();
   // TODO: make it draw lines longer than width
   for (int i = 1; i < height; i++) {
     int j = 0;
