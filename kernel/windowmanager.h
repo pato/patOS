@@ -9,12 +9,14 @@
 
 class WindowManager {
   private:
+    static VGA vga;
     static Layout*** layouts;
+    static Window* backdrop;
   public:
-    VGA vga;
     Map<Window> windowMap;
-    void init();
+    static void init();
     void addWindow(const char* name, int fg);
+    void addWindow(const char* name, int bg, int fg);
 };
 
 #endif
