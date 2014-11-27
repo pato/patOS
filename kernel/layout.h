@@ -4,20 +4,30 @@
 #define MAXROWS 25
 #define MAXCOLS 80
 
+/**
+ * Assumptions: 
+ * hsplits - the number of windows accross the horizontal axis (starts at 1)
+ * vsplits - the number of windows accross the vertical axis (starts at 1)
+ * which   - the index of the window (also starts at 1)
+ *
+ */
+
 struct Layout {
   int r, c, w, h;
-  Layout(int splits, int which) {
-    w = windowWidth(splits);
-    h = windowHeight(splits);
-    r = windowRow(splits, which);
-    c = windowCol(splits, which);
+  Layout(int vsplits, int hsplits, int which) {
+    w = windowWidth(hsplits);
+    h = windowHeight(vsplits);
+    r = windowRow(vsplits, which);
+    c = windowCol(hsplits, which);
   }
 
   int windowWidth(int splits) {
-    return MAXCOLS - 2 - (splits - 1); //TODO: starthere: fix this mess
+    /* maxcols - left and right margins - individual margins */
+    return MAXCOLS - 2 - (splits - 1);
   }
 
   int windowHeight(int splits) {
+    /* maxrows - top bar - bottom and top margins - individual margins */
     return MAXROWS - 3 - (splits - 1);
   }
 
