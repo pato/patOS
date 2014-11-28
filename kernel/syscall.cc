@@ -8,6 +8,7 @@
 #include "u8250.h"
 #include "libk.h"
 #include "kbd.h"
+#include "windowmanager.h"
 
 void Syscall::init(void) {
     IDT::addTrapHandler(100,(uint32_t)syscallTrap,3);
@@ -142,7 +143,8 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
     case 500: /* win_req */
         {
           char* name = (char*)a0;
-          Debug::printf("win_req(\"%s\")\n", name);
+          //Debug::printf("win_req(\"%s\")\n", name);
+          WindowManager::wm->addWindow(name, VGA::WHITE);
           return 0;
         }
     default:

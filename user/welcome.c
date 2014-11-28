@@ -4,6 +4,8 @@
 
 int main(int argc, char** argv) {
   win_req((char*)"Welcome");
+  puts("test");
+  /*
   puts("\n\n\n\n\n");
   puts("             Welcome to");
   puts("\n");
@@ -19,5 +21,6 @@ int main(int argc, char** argv) {
   puts("\n");
   puts("\n");
   puts("             NextGen OS");
+  */
   while (1) {};
 }
