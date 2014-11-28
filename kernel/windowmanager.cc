@@ -45,6 +45,7 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
   Layout* l = layouts[winCount + 1][i];
   Window* newWin = new Window(vga, name, l->r, l->c, l->h, l->w, bg, fg);
 
+  /* If there isn't a process (because the window was added for debugging purposes */
   int id = Process::current ? Process::current->id : 666;
 
   windowMap.add(id, newWin);
