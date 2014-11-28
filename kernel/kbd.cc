@@ -102,6 +102,7 @@ static uint32_t kbd_get(void) {
     case 0xaa: case 0xb6: shift = 0; return 0;
 
     case 0xB7:
+      // TODO: dont do this, only for debugging and demo purposes
       WindowManager::wm->addWindow("shell", VGA::WHITE);
       return 0; // print screen
 
