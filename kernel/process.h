@@ -83,10 +83,6 @@ public:
     // The current process, nullptr -> none
     static Process* current;                  
 
-    // current window
-    // TODO: not static, but per process
-    static Window* window;
-
     // an optional name
     const char* name;
 
