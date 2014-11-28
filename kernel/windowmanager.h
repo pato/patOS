@@ -13,6 +13,8 @@ class WindowManager {
     static Layout*** layouts;
     static Window* backdrop;
   public:
+    static WindowManager* wm;
+
     Map<Window> windowMap;
     static void init();
     void addWindow(const char* name, int fg);
