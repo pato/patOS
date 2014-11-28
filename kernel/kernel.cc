@@ -16,9 +16,9 @@
 #include "window.h"
 #include "vga.h"
 #include "process.h"
+#include "windowmanager.h"
 
-Window* Process::window;
-
+WindowManager* WindowManager::wm;
 
 extern "C"
 void kernelMain(void) {
@@ -68,17 +68,28 @@ void kernelMain(void) {
     Debug::printf("I have a heap\n");
 
     /* Initialize video drivers */
-    VGA vga;
 
-    Window(vga, "PatOS - version 0.0.0.0.1", 0, 0, 25, 80, VGA::GREEN, VGA::WHITE);
+    WindowManager::wm = new WindowManager();
+    WindowManager::wm->init();
+
+    /*
+    WindowManager::wm->addWindow((const char*)"shell", VGA::WHITE);
+    WindowManager::wm->addWindow((const char*)"welcome", VGA::RED, VGA::BLUE);
+    WindowManager::wm->addWindow((const char*)"gcc", VGA::CYAN, VGA::BLUE);
+    WindowManager::wm->addWindow((const char*)"rubiks cube", VGA::MAGENTA, VGA::BLUE);
+    */
+
+    /*
+    VGA vga;
 
     int width = (80 - 3) / 2;
     int height = 25 - 3;
-
     Process::window = new Window(vga, (const char*)"shell", 2, 1, height, width, VGA::BLUE, VGA::WHITE);
 
+    */
     /* Welcome Window */
     // TODO: make this a user program
+    /*
     Window welcome = Window(vga, (const char*)"welcome", 2, 2 + width, height, width, VGA::LIGHT_RED, VGA::WHITE);
     welcome.writeLine(false);
     welcome.writeLine(false);
@@ -107,6 +118,7 @@ void kernelMain(void) {
     welcome.writeLine(false);
     welcome.writeLine(false);
     welcome.redrawTextBuf();
+    */
 
     /* Make the rest of memory available for VM */
     PhysMem::init(0x200000,0x400000);
