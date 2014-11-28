@@ -1,12 +1,13 @@
 #include "windowmanager.h"
 
+#define MAXWINDOWS 6
 
 Layout*** WindowManager::layouts;
 Window* WindowManager::backdrop;
 VGA WindowManager::vga;
 
 void WindowManager::init() {
-  layouts = new Layout**[5];
+  layouts = new Layout**[MAXWINDOWS];
   layouts[0] = nullptr;
   layouts[1] = new Layout*[1] {new Layout(1,1,1,1)};
   layouts[2] = new Layout*[2] {new Layout(1,2,1,1),new Layout(1,2,1,2)};
@@ -24,6 +25,7 @@ void WindowManager::addWindow(const char* name, int fg) {
 
 void WindowManager::addWindow(const char* name, int bg, int fg) {
   int winCount = windowMap.getSize();
+  if (winCount == MAXWINDOWS) Debug::panic("Maximum windows reached");
 
 
   backdrop->clear();
