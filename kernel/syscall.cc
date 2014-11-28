@@ -138,7 +138,6 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
     case 14: /* getchar */
         {
           return Keyboard::is->get();
-              //return U8250::it->get();
         }
     case 500: /* win_req */
         {

@@ -1,4 +1,4 @@
-PROGS = shell ls shutdown echo cat clear
+PROGS = shell ls shutdown echo cat clear welcome
 
 all : $(PROGS)
 
@@ -15,6 +15,8 @@ shutdown : CFILES=shutdown.c libc.c heap.c
 cat : CFILES=cat.c libc.c heap.c
 
 clear : CFILES=clear.c libc.c heap.c
+
+welcome : CFILES=welcome.c libc.c heap.c
 
 $(PROGS) : % : Makefile $(OFILES)
 	ld -N -m elf_i386 -e start -Ttext=0x80000000 -o $@ $(OFILES)
