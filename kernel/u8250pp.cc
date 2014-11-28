@@ -2,6 +2,7 @@
 #include "machine.h"
 #include "process.h"
 #include "vga.h"
+#include "windowmanager.h"
 
 /**
  * 8250++ - NextGen Driver
@@ -14,11 +15,18 @@ U8250pp *U8250pp::it = nullptr;
 void U8250pp::put(char c) {
   if (Process::current) {
     if  (c == '\n') {
-      Process::window->writeLine(false);
+      Window* currWindow = WindowManager::wm->windowMap.get(Process::current->id);
+      if (currWindow) {
+        currWindow->writeLine(false);
+      }
     } else if (c == 13) {
       // ignore these chars
     } else {
-      Process::window->write(c);
+      Window* currWindow = WindowManager::wm->windowMap.get(Process::current->id);
+      if (currWindow) {
+        currWindow->writeLine(false);
+        currWindow->write(c);
+      }
     }
   } else {
     while (!(inb(0x3F8+5) & 0x20));
