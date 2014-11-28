@@ -24,7 +24,6 @@ void U8250pp::put(char c) {
     } else {
       Window* currWindow = WindowManager::wm->windowMap.get(Process::current->id);
       if (currWindow) {
-        currWindow->writeLine(false);
         currWindow->write(c);
       }
     }
