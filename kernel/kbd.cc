@@ -2,6 +2,7 @@
 #include "machine.h"
 #include "bb.h"
 #include "debug.h"
+#include "windowmanager.h"
 
 int shift = 0;
 
@@ -100,7 +101,9 @@ static uint32_t kbd_get(void) {
     case 0x2a: case 0x36: shift = 1; return 0;
     case 0xaa: case 0xb6: shift = 0; return 0;
 
-    case 0xE0: case 0x37:  return 0; // print screen
+    case 0xB7:
+      WindowManager::wm->addWindow("shell", VGA::WHITE);
+      return 0; // print screen
 
     default: return 0;
     }
