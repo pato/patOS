@@ -15,6 +15,7 @@ U8250pp *U8250pp::it = nullptr;
 void U8250pp::put(char c) {
   if (Process::current) {
     if  (c == '\n') {
+      //TODO: child processes cannot print things because they dont have their own window!
       Window* currWindow = WindowManager::wm->windowMap.get(Process::current->id);
       if (currWindow) {
         currWindow->writeLine(false);
