@@ -34,6 +34,7 @@ void Window::clear() {
       Window::put(r, c, ' ');
     }
   }
+  seek(1,0);
   drawTitle();
 }
 
@@ -129,8 +130,8 @@ void Window::redrawTextBuf() {
       uint8_t color = textBuf->data[realRow][j][1];
       if (c == 0) break;
       put(i, j, c, color);
-      seek(i,j);
     }
     for (;j<width;j++) put(i, j, ' ', bg, fg);
+    seek(i, j);
   }
 }
