@@ -7,7 +7,6 @@ int catFile(char* fileName) {
   int len = getlen(fd);
   char buffer[len + 1];
 
-  //TODO: buffer the reading
   readFully(fd, buffer, len);
   buffer[len] = '\0';
 
