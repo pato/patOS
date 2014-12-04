@@ -91,7 +91,7 @@ static uint32_t kbd_get(void) {
     case 0x0C : return(ul('-'));
     case 0x0D : return(ul('='));
     case 0x33 : return(ul(','));
-    case 0x34 : return(ul('.'));
+    //case 0x34 : return(ul('.'));
     case 0x35 : return(ul('/'));
     case 0x27 : return(ul(';'));
     case 0x2B : return(ul('\\'));
@@ -105,7 +105,10 @@ static uint32_t kbd_get(void) {
       // TODO: dont do this, only for debugging and demo purposes
       WindowManager::wm->addWindow("shell", VGA::WHITE);
       return 0; // print screen
-
+    case 0x34:
+      //TODO: dont do this, only for debug
+      WindowManager::wm->windowMap.get(0)->redrawTextBuf();
+      return 0;
     default: return 0;
     }
  

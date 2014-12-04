@@ -3,6 +3,7 @@
 
 #include "vga.h"
 #include "layout.h"
+#include "debug.h"
 
 #define MAXROWS 25 /* also defined in layout.h */
 #define MAXCOLS 80
@@ -26,11 +27,18 @@ struct TextBuffer {
     } // TODO: deal with else, might want to support longer lines, but can also define as limitation
   }
   void writeLine() { // only real line breaks
+    data[row][col][0] = '\0';
     row = (row + 1) % BUFFERHEIGHT;
     clearRow(row);
     col = 0;
   }
+  /**
+   * get the row into the text buffer
+   * r - the relative row of the window we are displaying
+   * height - the height of the window where we are displaying
+   */
   uint32_t getRealRow(int r, int height) {
+    r += 1; // compensate for the titlebar row
     return (row - height + r) >= 0 ? (row - height + r) : BUFFERHEIGHT + ( row - height + r);
   }
   void clearRow(int row) {
@@ -44,10 +52,12 @@ class Window {
 private:
     VGA& vga;
     TextBuffer* textBuf;
+    bool full;
     int bg, fg;
     int row, column, height, width;
     const char* name; /* window title */
     int cRow, cCol; /* cursor row and column */
+
     void put(int r, int c, char ch);
     void put(int r, int c, char ch, int color);
     void put(int r, int c, char ch, int bg, int fg);

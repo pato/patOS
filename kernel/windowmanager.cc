@@ -28,7 +28,9 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
   if (winCount == MAXWINDOWS) Debug::panic("Maximum windows reached");
 
 
+  // clear the screen by redrawing the backdrop
   backdrop->clear();
+
   windowMap.lock();
   MapNode<Window>* curr = windowMap.head;
   int i = 0;

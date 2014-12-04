@@ -15,6 +15,8 @@ Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, i
   this->cRow = 1;
   this->cCol = 0;
 
+  this->full = false;
+
   this->textBuf = new TextBuffer();
   Window::clear();
 }
@@ -99,6 +101,7 @@ void Window::writeLine(bool wrap) {
   if (!wrap) textBuf->writeLine(); // if it's a real line break, write it to text buffer
   if (cRow + 1 > (height - 1)) {
     redrawTextBuf();
+    full = true;
     for (int j = 0; j<width; j++) put(cRow, j, ' ', bg, fg);
     cCol = 0;
   } else {
@@ -121,14 +124,18 @@ void Window::resize(Layout* l) {
 void Window::redrawTextBuf() {
   clear();
   // TODO: make it draw lines longer than width
-  for (int i = 1; i < height; i++) {
-    int j = 0;
+  int i = 1, j = 0;
+  int maxHeight = full ? height : cRow + 1;
+  for (i = 1; i < maxHeight; i++) {
+    j = 0;
     for (; j < width; j++) {
-      uint32_t realRow = textBuf->getRealRow(i, height);
+      uint32_t realRow = textBuf->getRealRow(i, maxHeight);
       char c = textBuf->data[realRow][j][0];
       uint8_t color = textBuf->data[realRow][j][1];
       if (c == 0) break;
       put(i, j, c, color);
+      //put(i, j, '0' + i, color);
+      //if (i == 2) Debug::printf("height: %d i: %d j: %d\n", height, i, j);
     }
     for (;j<width;j++) put(i, j, ' ', bg, fg);
   }
