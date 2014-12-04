@@ -16,7 +16,7 @@ void WindowManager::init() {
   layouts[5] = new Layout*[5] {new Layout(2,2,1,1),new Layout(2,2,2,1),new Layout(3,2,1,2),new Layout(3,2,2,2),new Layout(3,2,3,2)};
   layouts[6] = new Layout*[6] {new Layout(3,2,1,1),new Layout(3,2,2,1),new Layout(3,2,3,1),new Layout(3,2,1,2),new Layout(3,2,2,2),new Layout(3,2,3,2)};
 
-  backdrop = new Window(vga, "PatOS - version 0.0.0.0.1", 0, 0, 25, 80, VGA::GREEN, VGA::WHITE);
+  backdrop = new Window(vga, "PatOS - version 0.0.4", 0, 0, 25, 80, VGA::GREEN, VGA::WHITE);
 }
 
 void WindowManager::addWindow(const char* name, int fg) {
