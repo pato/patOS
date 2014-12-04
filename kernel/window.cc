@@ -57,6 +57,7 @@ void Window::seek(int r, int c) {
   if (!boundCheck(r, c)) return;
   this->cRow = r;
   this->cCol = c;
+  cursor(r,c);
 }
 
 void Window::put(int r, int c, char ch, int bg, int fg) {
@@ -128,6 +129,7 @@ void Window::redrawTextBuf() {
       uint8_t color = textBuf->data[realRow][j][1];
       if (c == 0) break;
       put(i, j, c, color);
+      seek(i,j);
     }
     for (;j<width;j++) put(i, j, ' ', bg, fg);
   }
