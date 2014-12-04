@@ -31,6 +31,7 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
             child->pc = userPC;
             child->esp = userESP;
             child->eax = 0;
+            child->windowId = Process::current->id;
             long id = Process::current->resources->open(child);
             child->start();
 

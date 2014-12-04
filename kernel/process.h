@@ -56,6 +56,9 @@ public:
 
     bool hasWindow;
 
+    /* Used if you are a child */
+    int windowId;
+
     // The current state
     State state;
 

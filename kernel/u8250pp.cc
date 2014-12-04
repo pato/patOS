@@ -14,16 +14,17 @@ U8250pp *U8250pp::it = nullptr;
 
 void U8250pp::put(char c) {
   if (Process::current) {
+    Window* currWindow = WindowManager::wm->windowMap.get(Process::current->id);
+    if (!currWindow) { /* Maybe you are a child of a window */
+      currWindow = WindowManager::wm->windowMap.get(Process::current->windowId);
+    }
     if  (c == '\n') {
-      //TODO: child processes cannot print things because they dont have their own window!
-      Window* currWindow = WindowManager::wm->windowMap.get(Process::current->id);
       if (currWindow) {
         currWindow->writeLine(false);
       }
     } else if (c == 13) {
       // ignore these chars
     } else {
-      Window* currWindow = WindowManager::wm->windowMap.get(Process::current->id);
       if (currWindow) {
         currWindow->write(c);
       }
