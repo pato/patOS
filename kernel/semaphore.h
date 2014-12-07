@@ -24,16 +24,20 @@ public:
 };
 
 class Event {
-    Semaphore status;
+  Semaphore status;
+  bool signaled;
 public:
-    Event() : status(0) {}
-    void wait() {
-        status.down();
-        status.up();
-    }
-    void signal() {
-        status.up();
-    }
+  Event() : status(0) {signaled = false;}
+  void wait() {
+    status.down();
+    status.up();
+  }
+  void signal() {
+    signaled = true; /* could potentially cause concurrency issues since im not disabling interrupts but we'll see */
+    status.up();
+  }
+  bool isSignaled() {
+    return signaled;
+  }
 };
-
 #endif
