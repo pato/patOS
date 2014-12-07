@@ -18,11 +18,13 @@ Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, i
   this->full = false;
 
   this->textBuf = new TextBuffer();
+  this->focus = new Event();
   Window::clear();
 }
 
 Window::~Window() {
   delete textBuf;
+  delete focus;
 }
 
 bool Window::boundCheck(int r, int c) {

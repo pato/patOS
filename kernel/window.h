@@ -4,6 +4,7 @@
 #include "vga.h"
 #include "layout.h"
 #include "debug.h"
+#include "semaphore.h"
 
 #define MAXROWS 25 /* also defined in layout.h */
 #define MAXCOLS 80
@@ -65,6 +66,7 @@ private:
     void drawTitle();
     bool boundCheck(int r, int c);
 public:
+    Event* focus;
     Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg);
     ~Window();
     void clear();
