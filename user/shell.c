@@ -86,13 +86,23 @@ int main() {
     char* in = gets();
     char** argv = splitArgs(in);
     if (argv[0] == nullptr) continue;
+    int disown = 0;
+    if (strcmp("shell", argv[0]) == 0) {
+      disown = 1;
+    }
     int pid = fork();
     if (pid) {
-      int eCode = join(pid);
-      if (eCode == ERR_EXEC_NOT_FOUND)
-        notFound(argv[0]);
-      else if (eCode == ERR_FILE_NOT_FOUND)
-        fileNotFound(argv[0], argv[1]);
+      if (disown) {
+        close(pid);
+        puts("Child disowned\n");
+      } else {
+        int eCode = join(pid);
+        if (eCode == ERR_EXEC_NOT_FOUND) {
+          notFound(argv[0]);
+        } else if (eCode == ERR_FILE_NOT_FOUND) {
+          fileNotFound(argv[0], argv[1]);
+        }
+      }
     } else {
       exit(execv(argv[0], argv));
     }
