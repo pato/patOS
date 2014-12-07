@@ -87,7 +87,10 @@ int main() {
     char** argv = splitArgs(in);
     if (argv[0] == nullptr) continue;
     int disown = 0;
-    if (strcmp("shell", argv[0]) == 0) {
+    if (strcmp("exit", argv[0]) == 0) {
+      puts("Exiting...");
+      exit(0);
+    } else if (strcmp("shell", argv[0]) == 0) {
       disown = 1;
     }
     int pid = fork();
