@@ -14,24 +14,13 @@ U8250pp *U8250pp::it = nullptr;
 
 void U8250pp::put(char c) {
   if (Process::current) {
-    Window* currWindow = WindowManager::wm->windowMap.get(Process::current->id);
-    if (!currWindow) { /* Maybe you are a child of a window */
-      currWindow = WindowManager::wm->windowMap.get(Process::current->windowId);
+    Window* currWindow = WindowManager::wm->currentWindow();
+    if  (c == '\n') { /* new lines */
+      if (currWindow) currWindow->writeLine(false);
+    } else if (c == 13) { /* ignored characters */
+    } else { /* normal characters */
+      if (currWindow) currWindow->write(c);
     }
-    if  (c == '\n') {
-      if (currWindow) {
-        currWindow->writeLine(false);
-      }
-    } else if (c == 13) {
-      // ignore these chars
-    } else {
-      if (currWindow) {
-        currWindow->write(c);
-      }
-    }
-  } else {
-    while (!(inb(0x3F8+5) & 0x20));
-    outb(0x3F8,c);
   }
 }
 

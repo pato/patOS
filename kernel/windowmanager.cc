@@ -19,6 +19,14 @@ void WindowManager::init() {
   backdrop = new Window(vga, "PatOS - version 0.0.4", 0, 0, 25, 80, VGA::GREEN, VGA::WHITE);
 }
 
+Window* WindowManager::currentWindow() {
+    Window* currWindow = windowMap.get(Process::current->id);
+    if (!currWindow) { /* Maybe you are a child of a window */
+      currWindow = windowMap.get(Process::current->windowId);
+    }
+    return currWindow;
+}
+
 void WindowManager::addWindow(const char* name, int fg) {
   addWindow(name, DEFAULTBG, fg);
 }
