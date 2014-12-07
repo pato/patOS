@@ -12,3 +12,7 @@ test.out
 *.vim
 tester.sh
 .nfs*
+user/exit
+user/clear
+user/shutdown
+user/welcome
