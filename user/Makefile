@@ -1,4 +1,4 @@
-PROGS = shell ls shutdown echo cat clear welcome
+PROGS = shell ls shutdown echo cat clear welcome exit
 
 all : $(PROGS)
 
@@ -11,6 +11,8 @@ echo : CFILES=echo.c libc.c heap.c
 ls : CFILES=ls.c libc.c heap.c
 
 shutdown : CFILES=shutdown.c libc.c heap.c
+
+exit : CFILES=exit.c libc.c heap.c
 
 cat : CFILES=cat.c libc.c heap.c
 
