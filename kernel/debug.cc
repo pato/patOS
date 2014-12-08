@@ -4,10 +4,12 @@
 #include "semaphore.h"
 
 OutputStream<char> *Debug::sink = 0;
+OutputStream<char> *Debug::csink = 0;
 bool Debug::debugAll = false;
 
-void Debug::init(OutputStream<char> *sink) {
+void Debug::init(OutputStream<char> *sink, OutputStream<char> *csink) {
     Debug::sink = sink;
+    Debug::csink = csink;
 }
 
 void Debug::vprintf(const char* fmt, va_list ap) {
@@ -20,6 +22,13 @@ void Debug::printf(const char* fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
     vprintf(fmt,ap);
+    va_end(ap);
+}
+
+void Debug::cprintf(const char* fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    K::vsnprintf(*csink,1000,fmt,ap);
     va_end(ap);
 }
 

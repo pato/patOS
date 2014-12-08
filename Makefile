@@ -3,6 +3,9 @@ default : all;
 run : all
 	qemu-system-x86_64 -curses --serial mon:stdio -hdc kernel/kernel.img -hdd fat439/user.img
 
+runC : all
+	qemu-system-x86_64 --serial mon:stdio -hdc kernel/kernel.img -hdd fat439/user.img
+
 runX: all
 	qemu-system-x86_64 -hdc kernel/kernel.img -hdd fat439/user.img
 

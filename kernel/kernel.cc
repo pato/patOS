@@ -52,7 +52,7 @@ void kernelMain(void) {
 
     /* redirect debug output to COM1 */
     //Debug::init(U8250::it);
-    Debug::init(U8250pp::it);
+    Debug::init(U8250pp::it, U8250::it);
     Debug::debugAll = false;
     Debug::printf("\nWhat just happened? Who am I? Why am I here?\n");
     Debug::printf("I am K439, welcome to my world\n");
