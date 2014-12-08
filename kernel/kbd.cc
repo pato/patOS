@@ -10,7 +10,7 @@ InputStream<char> *Keyboard::is;
 BB<char> *bb;
 
 void Keyboard::init() {
-    bb = new BB<char>(10);
+    bb = new BB<char>(100);
     is = bb;
 }
 
@@ -100,6 +100,14 @@ static uint32_t kbd_get(void) {
 
     case 0x2a: case 0x36: shift = 1; return 0;
     case 0xaa: case 0xb6: shift = 0; return 0;
+
+    /* Used for shifting focus */
+    case 0x3B: WindowManager::wm->shiftFocus(1); return 0; // F1
+    case 0x3C: WindowManager::wm->shiftFocus(2); return 0; // F2
+    case 0x3D: WindowManager::wm->shiftFocus(3); return 0; // F3
+    case 0x3E: WindowManager::wm->shiftFocus(4); return 0; // F4
+    case 0x3F: WindowManager::wm->shiftFocus(5); return 0; // F5
+    case 0x40: WindowManager::wm->shiftFocus(6); return 0; // F6
 
     case 0x34: /* . */
       //TODO: dont do this, only for debug
