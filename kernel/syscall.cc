@@ -143,10 +143,11 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
           /*
            * TODO:
            * Problems:
-           * redrawing (with . ) doesn't redraw the title
-           * whenever a child process prints something that causes a new line, the title gets all messed up
            * Need to make dying process release focus
            * Sometimes windows draw more than they should (especially whenveer there are 3 vertical windows)
+           * Match the window number to the Function keys for focus
+           * someitmes windows dont show as typing (especially with 3)
+           * make windows draw their window number
            */
           return Keyboard::is->get();
         }
