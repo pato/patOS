@@ -101,11 +101,7 @@ static uint32_t kbd_get(void) {
     case 0x2a: case 0x36: shift = 1; return 0;
     case 0xaa: case 0xb6: shift = 0; return 0;
 
-    case 0xB7:
-      // TODO: dont do this, only for debugging and demo purposes
-      WindowManager::wm->addWindow("shell", VGA::WHITE);
-      return 0; // print screen
-    case 0x34:
+    case 0x34: /* . */
       //TODO: dont do this, only for debug
       WindowManager::wm->windowMap.get(0)->redrawTextBuf();
       return 0;
