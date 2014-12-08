@@ -20,11 +20,11 @@ void WindowManager::init() {
 }
 
 Window* WindowManager::currentWindow() {
-    Window* currWindow = windowMap.get(Process::current->id);
-    if (!currWindow) { /* Maybe you are a child of a window */
-      currWindow = windowMap.get(Process::current->windowId);
-    }
-    return currWindow;
+  Window* currWindow = windowMap.get(Process::current->id);
+  if (!currWindow) { /* Maybe you are a child of a window */
+    currWindow = windowMap.get(Process::current->windowId);
+  }
+  return currWindow;
 }
 
 void resetFocus(Window* win) {
@@ -69,6 +69,7 @@ void WindowManager::addWindow(const char* name, int fg) {
 }
 
 void WindowManager::addWindow(const char* name, int bg, int fg) {
+  Debug::cprintf("addWindow(%s, %d, %d)\n", name, bg, fg);
   // clear the screen by redrawing the backdrop
   backdrop->clear();
 
@@ -82,6 +83,7 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
     if (i >= winCount) Debug::panic("found more windows than winCount while iterating");
 
     curr->value->resize(layouts[winCount + 1][i]);
+    curr->value->drawTitle(i);
     resetFocus(curr->value);
     curr = curr->next;
   }
@@ -91,6 +93,7 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
 
   Layout* l = layouts[winCount + 1][i];
   Window* newWin = new Window(vga, name, l->r, l->c, l->h, l->w, bg, fg);
+  newWin->drawTitle(i);
 
   /* If there isn't a process (because the window was added for debugging purposes */
   int id = Process::current ? Process::current->id : 666;
