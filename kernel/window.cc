@@ -33,20 +33,16 @@ bool Window::boundCheck(int r, int c) {
 }
 
 void Window::clear() {
-  for (uint8_t c = 0; c < this->width; c++) {
-    for (uint8_t r = 0; r < this->height; r++) {
-      Window::put(r, c, ' ');
-    }
-  }
+  fill(' ');
   drawTitle();
 }
 
 void Window::fill(char ch) {
-    for (int r=0; r<100; r++) {
-        for (int c=0; c<100; c++) {
-            Window::put(r,c,ch);
-        }
+  for (uint8_t c = 0; c < this->width; c++) {
+    for (uint8_t r = 0; r < this->height; r++) {
+      Window::put(r, c, ch);
     }
+  }
 }
 
 void Window::drawTitle() {
@@ -136,8 +132,6 @@ void Window::redrawTextBuf() {
       uint8_t color = textBuf->data[realRow][j][1];
       if (c == 0) break;
       put(i, j, c, color);
-      //put(i, j, '0' + i, color);
-      //if (i == 2) Debug::printf("height: %d i: %d j: %d\n", height, i, j);
     }
     for (;j<width;j++) put(i, j, ' ', bg, fg);
   }

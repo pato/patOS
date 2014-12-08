@@ -103,7 +103,7 @@ static uint32_t kbd_get(void) {
 
     case 0x34: /* . */
       //TODO: dont do this, only for debug
-      WindowManager::wm->windowMap.get(0)->redrawTextBuf();
+      WindowManager::wm->currentWindow()->redrawTextBuf();
       return 0;
     default: return 0;
     }
