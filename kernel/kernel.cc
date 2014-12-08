@@ -72,54 +72,6 @@ void kernelMain(void) {
     WindowManager::wm = new WindowManager();
     WindowManager::wm->init();
 
-    /*
-    WindowManager::wm->addWindow((const char*)"shell", VGA::WHITE);
-    WindowManager::wm->addWindow((const char*)"welcome", VGA::RED, VGA::BLUE);
-    WindowManager::wm->addWindow((const char*)"gcc", VGA::CYAN, VGA::BLUE);
-    WindowManager::wm->addWindow((const char*)"rubiks cube", VGA::MAGENTA, VGA::BLUE);
-    */
-
-    /*
-    VGA vga;
-
-    int width = (80 - 3) / 2;
-    int height = 25 - 3;
-    Process::window = new Window(vga, (const char*)"shell", 2, 1, height, width, VGA::BLUE, VGA::WHITE);
-
-    */
-    /* Welcome Window */
-    // TODO: make this a user program
-    /*
-    Window welcome = Window(vga, (const char*)"welcome", 2, 2 + width, height, width, VGA::LIGHT_RED, VGA::WHITE);
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.write("             Welcome to");
-    welcome.writeLine(false);
-    welcome.write(" mmmmm           m     mmmm   mmmm");
-    welcome.writeLine(false);
-    welcome.write(" #   \"#  mmm   mm#mm  m\"  \"m #\"   \"");
-    welcome.writeLine(false);
-    welcome.write(" #mmm#\" \"   #    #    #    # \"#mmm");
-    welcome.writeLine(false);
-    welcome.write(" #      m\"\"\"#    #    #    #     \"#");
-    welcome.writeLine(false);
-    welcome.write(" #      \"mm\"#    \"mm   #mm#  \"mmm#\"");
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.write("             NextGen OS");
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.writeLine(false);
-    welcome.redrawTextBuf();
-    */
-
     /* Make the rest of memory available for VM */
     PhysMem::init(0x200000,0x400000);
 
