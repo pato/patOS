@@ -47,6 +47,7 @@ void Window::fill(char ch) {
 
 void Window::drawTitle() {
   int i = 0;
+  //Debug::printf("title: %s\n", name);
   for (; name[i] != '\0'; i++)
     Window::put(0, i, name[i], TITLEBG, TITLEFG);
   for (; i < width; i++) 

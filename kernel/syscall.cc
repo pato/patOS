@@ -140,12 +140,19 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
     case 14: /* getchar */
         {
           WindowManager::wm->currentWindow()->focus->wait();
+          /*
+           * TODO:
+           * Problems:
+           * redrawing (with . ) doesn't redraw the title
+           * whenever a child process prints something that causes a new line, the title gets all messed up
+           * Need to make dying process release focus
+           * Sometimes windows draw more than they should (especially whenveer there are 3 vertical windows)
+           */
           return Keyboard::is->get();
         }
     case 500: /* win_req */
         {
           char* name = (char*)a0;
-          //Debug::printf("win_req(\"%s\")\n", name);
           WindowManager::wm->addWindow(name, VGA::WHITE);
           return 0;
         }
