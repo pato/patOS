@@ -3,7 +3,7 @@
 Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg)
   : vga(vga) {
 
-  this->name = name;
+  this->name = K::strdup(name);
   this->row = r;
   this->column = c;
   this->height = h;
@@ -27,6 +27,9 @@ Window::~Window() {
   delete focus;
 }
 
+static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                            '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
 bool Window::boundCheck(int r, int c) {
   // Ensure that the we really only write to this window
   return !(r < 0 || c < 0 || r >= this->height || c >= this->width);
@@ -47,11 +50,26 @@ void Window::fill(char ch) {
 
 void Window::drawTitle() {
   int i = 0;
-  //Debug::printf("title: %s\n", name);
+  Debug::cprintf("drawTitle(): %s\n", name);
+  return;
   for (; name[i] != '\0'; i++)
     Window::put(0, i, name[i], TITLEBG, TITLEFG);
   for (; i < width; i++) 
     Window::put(0, i, ' ', TITLEBG, TITLEFG);
+}
+
+void Window::drawTitle(int n) {
+  int c = 0;
+  Debug::cprintf("drawTitle(%d): %s\n",n,name);
+  put(0, c++, hexDigits[n], TITLEBG, TITLEFG);
+  put(0, c++, ' ', TITLEBG, TITLEFG);
+  put(0, c++, '-', TITLEBG, TITLEFG);
+  put(0, c++, ' ', TITLEBG, TITLEFG);
+  int i = 0;
+  for (; name[i] != '\0'; i++)
+    Window::put(0, c+i, name[i], TITLEBG, TITLEFG);
+  for (; i < (width - c); i++) 
+    Window::put(0, c+i, ' ', TITLEBG, TITLEFG);
 }
 
 void Window::seek(int r, int c) {
