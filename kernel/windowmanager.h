@@ -18,6 +18,7 @@ class WindowManager {
     Map<Window> windowMap;
     static void init();
     Window* currentWindow();
+    void shiftFocus(int window);
     void addWindow(const char* name, int fg);
     void addWindow(const char* name, int bg, int fg);
 };
