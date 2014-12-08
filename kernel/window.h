@@ -5,6 +5,7 @@
 #include "layout.h"
 #include "debug.h"
 #include "semaphore.h"
+#include "libk.h"
 
 #define MAXROWS 25 /* also defined in layout.h */
 #define MAXCOLS 80
@@ -56,7 +57,6 @@ private:
     bool full;
     int bg, fg;
     int row, column, height, width;
-    const char* name; /* window title */
     int cRow, cCol; /* cursor row and column */
 
     void put(int r, int c, char ch);
@@ -67,12 +67,14 @@ private:
     bool boundCheck(int r, int c);
 public:
     Event* focus;
+    const char* name; /* window title */
     Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg);
     ~Window();
     void clear();
     void fill(char c);
     void seek(int r, int c);
     void write(char c);
+    void drawTitle(int n);
     void write(const char* c);
     void writeLine(bool wrap);
     void resize(int r, int c, int h, int w);
