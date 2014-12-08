@@ -139,6 +139,7 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
         }
     case 14: /* getchar */
         {
+          WindowManager::wm->currentWindow()->focus->wait();
           return Keyboard::is->get();
         }
     case 500: /* win_req */

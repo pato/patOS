@@ -27,6 +27,14 @@ Window* WindowManager::currentWindow() {
     return currWindow;
 }
 
+void resetFocus(Window* win) {
+  if (win->focus->isSignaled()) {
+    /* TODO: may need to revisit the event signal because it may not be thread safe */
+    delete win->focus;
+    win->focus = new Event();
+  }
+}
+
 void WindowManager::addWindow(const char* name, int fg) {
   addWindow(name, DEFAULTBG, fg);
 }
@@ -34,7 +42,6 @@ void WindowManager::addWindow(const char* name, int fg) {
 void WindowManager::addWindow(const char* name, int bg, int fg) {
   int winCount = windowMap.getSize();
   if (winCount == MAXWINDOWS) Debug::panic("Maximum windows reached");
-
 
   // clear the screen by redrawing the backdrop
   backdrop->clear();
@@ -46,6 +53,7 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
     if (i >= winCount) Debug::panic("found more windows than winCount while iterating");
 
     curr->value->resize(layouts[winCount + 1][i]);
+    resetFocus(curr->value);
     curr = curr->next;
   }
   windowMap.unlock();
@@ -57,6 +65,8 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
 
   /* If there isn't a process (because the window was added for debugging purposes */
   int id = Process::current ? Process::current->id : 666;
+
+  newWin->focus->signal();
 
   windowMap.add(id, newWin);
 }
