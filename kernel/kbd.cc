@@ -39,6 +39,16 @@ static char ul(char x) {
         case ';'  : return ':';
         case ']'  : return '}';
         case '['  : return '{';
+        case '0'  : return ')';
+        case '1'  : return '!';
+        case '2'  : return '@';
+        case '3'  : return '#';
+        case '4'  : return '$';
+        case '5'  : return '%';
+        case '6'  : return '^';
+        case '7'  : return '&';
+        case '8'  : return '*';
+        case '9'  : return '(';
         default: return 'X';
       }
     } else {
@@ -51,8 +61,7 @@ static uint32_t kbd_get(void) {
     while ((inb(0x64) & 1) == 0);
     uint8_t b = inb(0x60);
     switch (b) {
-    //TODO: add support for shift and numbers
-    case 0x02 ... 0x0a : return('0' + b - 1); // 1-9
+    case 0x02 ... 0x0a : return(ul('0' + b - 1)); // 1-9
     case 0x0b : return('0');
 
     case 0x0e : return(8); // backspace
@@ -91,7 +100,7 @@ static uint32_t kbd_get(void) {
     case 0x0C : return(ul('-'));
     case 0x0D : return(ul('='));
     case 0x33 : return(ul(','));
-    //case 0x34 : return(ul('.'));
+    case 0x34 : return(ul('.'));
     case 0x35 : return(ul('/'));
     case 0x27 : return(ul(';'));
     case 0x2B : return(ul('\\'));
@@ -109,8 +118,7 @@ static uint32_t kbd_get(void) {
     case 0x3F: WindowManager::wm->shiftFocus(5); return 0; // F5
     case 0x40: WindowManager::wm->shiftFocus(6); return 0; // F6
 
-    case 0x34: /* . */
-      //TODO: dont do this, only for debug
+    case 0x37: /* printscreen */
       WindowManager::wm->currentWindow()->redrawTextBuf();
       return 0;
     default: return 0;
