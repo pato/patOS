@@ -64,7 +64,7 @@ void Window::drawTitle(int n) {
     put(0, c++, ' ', TITLEBG, TITLEFG);
   }
   int i = 0;
-  for (; name[i] != '\0'; i++)
+  for (; name[i] != '\0' && i < (width - c); i++)
     Window::put(0, c+i, name[i], TITLEBG, TITLEFG);
   for (; i < (width - c); i++) 
     Window::put(0, c+i, ' ', TITLEBG, TITLEFG);
