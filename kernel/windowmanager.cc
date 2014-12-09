@@ -16,8 +16,7 @@ void WindowManager::init() {
   layouts[5] = new Layout*[5] {new Layout(2,2,1,1),new Layout(2,2,2,1),new Layout(3,2,1,2),new Layout(3,2,2,2),new Layout(3,2,3,2)};
   layouts[6] = new Layout*[6] {new Layout(3,2,1,1),new Layout(3,2,2,1),new Layout(3,2,3,1),new Layout(3,2,1,2),new Layout(3,2,2,2),new Layout(3,2,3,2)};
 
-  backdrop = new Window(vga, "PatOS - version 0.0.4", 0, 0, 25, 80, VGA::GREEN, VGA::WHITE);
-  backdrop->updatePos(-1);
+  backdrop = new Window(vga, "PatOS - version 0.0.4", 0, 0, 25, 80, VGA::GREEN, VGA::WHITE, -1);
 }
 
 Window* WindowManager::currentWindow() {
@@ -83,7 +82,7 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
   for (; curr != nullptr; i++) {
     if (i >= winCount) Debug::panic("found more windows than winCount while iterating");
 
-    curr->value->updatePos(i);
+    curr->value->updatePos(i+1);
     curr->value->resize(layouts[winCount + 1][i]);
     resetFocus(curr->value);
     curr = curr->next;
@@ -93,8 +92,7 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
   if (i != winCount) Debug::panic("i != winCount after iterating over windowMap");
 
   Layout* l = layouts[winCount + 1][i];
-  Window* newWin = new Window(vga, name, l->r, l->c, l->h, l->w, bg, fg);
-  newWin->drawTitle(i);
+  Window* newWin = new Window(vga, name, l->r, l->c, l->h, l->w, bg, fg, i+1);
 
   /* If there isn't a process (because the window was added for debugging purposes */
   int id = Process::current ? Process::current->id : 666;

@@ -1,6 +1,6 @@
 #include "window.h"
 
-Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg)
+Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg, int pos)
   : vga(vga) {
 
   this->name = K::strdup(name);
@@ -19,6 +19,9 @@ Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, i
 
   this->textBuf = new TextBuffer();
   this->focus = new Event();
+  
+  this->pos = pos;
+
   Window::clear();
 }
 

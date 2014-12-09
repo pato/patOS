@@ -69,7 +69,7 @@ private:
 public:
     int pos;
     Event* focus;
-    Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg);
+    Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg, int pos);
     ~Window();
     void clear();
     void fill(char c);
