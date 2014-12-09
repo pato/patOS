@@ -17,6 +17,7 @@ void WindowManager::init() {
   layouts[6] = new Layout*[6] {new Layout(3,2,1,1),new Layout(3,2,2,1),new Layout(3,2,3,1),new Layout(3,2,1,2),new Layout(3,2,2,2),new Layout(3,2,3,2)};
 
   backdrop = new Window(vga, "PatOS - version 0.0.4", 0, 0, 25, 80, VGA::GREEN, VGA::WHITE);
+  backdrop->updatePos(-1);
 }
 
 Window* WindowManager::currentWindow() {
@@ -82,8 +83,8 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
   for (; curr != nullptr; i++) {
     if (i >= winCount) Debug::panic("found more windows than winCount while iterating");
 
+    curr->value->updatePos(i);
     curr->value->resize(layouts[winCount + 1][i]);
-    curr->value->drawTitle(i);
     resetFocus(curr->value);
     curr = curr->next;
   }

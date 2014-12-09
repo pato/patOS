@@ -56,8 +56,9 @@ private:
     TextBuffer* textBuf;
     bool full;
     int bg, fg;
-    int row, column, height, width;
     int cRow, cCol; /* cursor row and column */
+    const char* name; /* window title */
+    int row, column, height, width;
 
     void put(int r, int c, char ch);
     void put(int r, int c, char ch, int color);
@@ -66,8 +67,8 @@ private:
     void drawTitle();
     bool boundCheck(int r, int c);
 public:
+    int pos;
     Event* focus;
-    const char* name; /* window title */
     Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg);
     ~Window();
     void clear();
@@ -75,10 +76,11 @@ public:
     void seek(int r, int c);
     void write(char c);
     void drawTitle(int n);
+    void updatePos(int p);
     void write(const char* c);
     void writeLine(bool wrap);
-    void resize(int r, int c, int h, int w);
     void resize(Layout* layout);
+    void resize(int r, int c, int h, int w);
     void redrawTextBuf();
 };
    

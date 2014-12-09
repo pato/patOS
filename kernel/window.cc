@@ -49,20 +49,17 @@ void Window::fill(char ch) {
 }
 
 void Window::drawTitle() {
-  int i = 0;
-  for (; name[i] != '\0'; i++)
-    Window::put(0, i, name[i], TITLEBG, TITLEFG);
-  for (; i < width; i++) 
-    Window::put(0, i, ' ', TITLEBG, TITLEFG);
+  drawTitle(pos);
 }
 
 void Window::drawTitle(int n) {
   int c = 0;
-  Debug::cprintf("drawTitle(%d): %s\n",n,name);
-  put(0, c++, hexDigits[n], TITLEBG, TITLEFG);
-  put(0, c++, ' ', TITLEBG, TITLEFG);
-  put(0, c++, '-', TITLEBG, TITLEFG);
-  put(0, c++, ' ', TITLEBG, TITLEFG);
+  if ( pos >= 0) {
+    put(0, c++, hexDigits[n], TITLEBG, TITLEFG);
+    put(0, c++, ' ', TITLEBG, TITLEFG);
+    put(0, c++, '-', TITLEBG, TITLEFG);
+    put(0, c++, ' ', TITLEBG, TITLEFG);
+  }
   int i = 0;
   for (; name[i] != '\0'; i++)
     Window::put(0, c+i, name[i], TITLEBG, TITLEFG);
@@ -93,6 +90,10 @@ void Window::put(int r, int c, char ch) {
 void Window::cursor(int r, int c) {
   if (!boundCheck(r, c)) return;
   this->vga.cursor(this->row + r, this->column + c, this->bg, this->fg);
+}
+
+void Window::updatePos(int p) {
+  pos = p;
 }
 
 void Window::write(const char* str) {
