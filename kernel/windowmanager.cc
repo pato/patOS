@@ -51,7 +51,7 @@ void WindowManager::shiftFocus(int window) {
     if (i >= winCount) Debug::panic("found more windows than winCount while iterating");
     Debug::cprintf("i: %d\n", i);
     
-    if (i == window - 1) {
+    if (window == curr->value->pos) {
       giveFocus(curr->value);
       Debug::cprintf("::giveFocus(%d)\n", i);
     } else {
