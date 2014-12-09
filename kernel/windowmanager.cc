@@ -1,6 +1,7 @@
 #include "windowmanager.h"
 
 #define MAXWINDOWS 6
+#define DEBUGON 0
 
 Layout*** WindowManager::layouts;
 Window* WindowManager::backdrop;
@@ -32,7 +33,7 @@ void resetFocus(Window* win) {
     /* TODO: may need to revisit the event signal because it may not be thread safe */
     delete win->focus;
     win->focus = new Event();
-    Debug::cprintf("resetFocus---\n");
+    if (DEBUGON) Debug::cprintf("resetFocus---\n");
   }
 }
 
@@ -41,27 +42,29 @@ void giveFocus(Window* win) {
 }
 
 void WindowManager::shiftFocus(int window) {
-  Debug::cprintf("---shiftFocus(%d)\n", window);
+  if (DEBUGON) Debug::cprintf("---shiftFocus(%d)\n", window);
   int winCount = windowMap.getSize();
-  //Debug::cprintf("winCount: %d\n", winCount);
+  if (window < winCount) return;
+
+  //if (DEBUGON) Debug::cprintf("winCount: %d\n", winCount);
   windowMap.lock();
   MapNode<Window>* curr = windowMap.head;
   int i = 0;
   for (; curr != nullptr; i++) {
     if (i >= winCount) Debug::panic("found more windows than winCount while iterating");
-    Debug::cprintf("i: %d\n", i);
+    if (DEBUGON) Debug::cprintf("i: %d\n", i);
     
     if (window == curr->value->pos) {
       giveFocus(curr->value);
-      Debug::cprintf("::giveFocus(%d)\n", i);
+      if (DEBUGON) Debug::cprintf("::giveFocus(%d)\n", i);
     } else {
       resetFocus(curr->value);
-      Debug::cprintf("::resetFocus(%d)\n", i);
+      if (DEBUGON) Debug::cprintf("::resetFocus(%d)\n", i);
     }
     curr = curr->next;
   }
   windowMap.unlock();
-  Debug::cprintf("---done shiftFocus\n");
+  if (DEBUGON) Debug::cprintf("---done shiftFocus\n");
 }
 
 void WindowManager::addWindow(const char* name, int fg) {
@@ -69,7 +72,7 @@ void WindowManager::addWindow(const char* name, int fg) {
 }
 
 void WindowManager::addWindow(const char* name, int bg, int fg) {
-  Debug::cprintf("addWindow(%s, %d, %d)\n", name, bg, fg);
+  if (DEBUGON) Debug::cprintf("addWindow(%s, %d, %d)\n", name, bg, fg);
   // clear the screen by redrawing the backdrop
   backdrop->clear();
 
