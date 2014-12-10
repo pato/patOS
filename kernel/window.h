@@ -80,6 +80,7 @@ public:
     void updatePos(int p);
     void write(const char* c);
     void writeLine(bool wrap);
+    void setFgColor(int color);
     void resize(Layout* layout);
     void resize(int r, int c, int h, int w);
     void redrawTextBuf();

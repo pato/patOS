@@ -116,6 +116,11 @@ void Window::write(char c) {
   }
 }
 
+void Window::setFgColor(int color) {
+  if (color > 15 || color < 0) return;
+  fg = color;
+}
+
 void Window::drawCursor() {
   cursor(cRow, cCol);
 }

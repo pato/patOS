@@ -154,6 +154,12 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
           WindowManager::wm->addWindow(name, VGA::WHITE);
           return 0;
         }
+    case 501: /* win_color(int color) */
+        {
+          int color = (int)a0;
+          WindowManager::wm->currentWindow()->setFgColor(color);
+          return 0;
+        }
     default:
         Process::trace("syscall(%d,%d,%d)",num,a0,a1);
         return -1;
