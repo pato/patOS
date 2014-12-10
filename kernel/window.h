@@ -58,7 +58,7 @@ private:
     int bg, fg;
     int cRow, cCol; /* cursor row and column */
     const char* name; /* window title */
-    int row, column, height, width;
+    int row, column;
 
     void put(int r, int c, char ch);
     void put(int r, int c, char ch, int color);
@@ -67,6 +67,7 @@ private:
     bool boundCheck(int r, int c);
 public:
     int pos;
+    int height, width;
     Event* focus;
     Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg, int pos);
     ~Window();

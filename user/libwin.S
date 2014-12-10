@@ -33,3 +33,22 @@ win_clear:
   mov $0,%edx
   int $100
   ret
+
+# long win_height()
+  .global win_height
+win_height:
+	mov $504,%eax
+  mov $0,%ecx
+  mov $0,%edx
+	int $100
+	ret
+  
+# long win_width()
+  .global win_width
+win_width:
+	mov $505,%eax
+  mov $0,%ecx
+  mov $0,%edx
+	int $100
+	ret
+  

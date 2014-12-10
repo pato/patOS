@@ -6,7 +6,8 @@ extern long win_color(int color);
 extern long win_draw(char*** buf);
 extern long win_cursor(int r, int c);
 extern long win_clear();
-extern long win_size(int* w, int* h);
+extern long win_height();
+extern long win_width();
 
 #define BLACK 0
 #define BLUE 1

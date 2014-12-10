@@ -1,6 +1,8 @@
 #include "libc.h"
+#include "libwin.h"
 
 int main() {
-  for (int i=0;i<80;i++) puts("\n");
+  int height = win_height();
+  for (int i=0;i<height;i++) puts("\n");
   return 0;
 }
