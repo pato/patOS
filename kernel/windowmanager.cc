@@ -57,6 +57,8 @@ void WindowManager::shiftFocus(int window) {
     if (window == curr->value->pos) {
       giveFocus(curr->value);
       curr->value->drawCursor();
+      Debug::cprintf("focused window: %d height: %d width: %d\n", curr->value->pos, curr->value->height, curr->value->width);
+      curr->value->debug();
       if (DEBUGON) Debug::cprintf("::giveFocus(%d)\n", i);
     } else {
       resetFocus(curr->value);
@@ -67,6 +69,7 @@ void WindowManager::shiftFocus(int window) {
   windowMap.unlock();
   Keyboard::bb->put('\1');
   if (DEBUGON) Debug::cprintf("---done shiftFocus\n");
+
 }
 
 void WindowManager::removeWindow(int processId) {
@@ -76,6 +79,7 @@ void WindowManager::removeWindow(int processId) {
   delete window;
   redrawWindows(true);
   giveFocus(windowMap.head->value);
+  windowMap.head->value->drawCursor();
 }
 
 void WindowManager::redrawWindows(bool reset) {
@@ -109,7 +113,7 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
 
   windowMap.lock();
   int winCount = windowMap.getSize();
-  if (winCount == MAXWINDOWS) Debug::panic("Maximum windows reached");
+  if (winCount == MAXWINDOWS) Debug::panic("winCount == MAXWINDOWS");
 
   MapNode<Window>* curr = windowMap.head;
   int i = 0;

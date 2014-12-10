@@ -1,5 +1,7 @@
 #include "window.h"
 
+#define WINDEBUG 0
+
 Window::Window(VGA& vga, const char* name, int r, int c, int h, int w, int bg, int fg, int pos)
   : vga(vga) {
 
@@ -35,6 +37,7 @@ static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7',
 
 bool Window::boundCheck(int r, int c) {
   // Ensure that the we really only write to this window
+  if (WINDEBUG) Debug::cprintf("boundCheck(%d, %d) (height: %d, width: %d)\n", r, c, height, width);
   return !(r < 0 || c < 0 || r >= this->height || c >= this->width);
 }
 
@@ -91,9 +94,15 @@ void Window::put(int r, int c, char ch) {
 }
 
 long Window::cursor(int r, int c) {
+  if (WINDEBUG) Debug::cprintf("cursor(%d, %d)\n",r, c);
   if (!boundCheck(r, c)) return -1;
   this->vga.cursor(this->row + r, this->column + c, this->bg, this->fg);
   return 0;
+}
+
+void Window::debug() {
+  Debug::cprintf("window pos: %d \t height: %d \t width: %d \t cRow: %d \t cCol: %d \t full: %s\n",
+      pos, height, width, cRow, cCol, full ? "true" : "false");
 }
 
 void Window::updatePos(int p) {
@@ -145,7 +154,15 @@ void Window::resize(int r, int c, int h, int w) {
   this->column = c;
   this->width = w;
   this->height = h;
+  if (cRow >= height) {
+    if (WINDEBUG) Debug::cprintf("cRow(%d) >= height(%d) => cRow = %d\n", cRow, height, height - 1);
+    cRow = height - 1;
+  } else if (cRow < height && full) {
+    if (WINDEBUG) Debug::cprintf("cRow(%d) < height(%d) && full => cRow = %d\n", cRow, height, height -1 );
+    cRow = height - 1;
+  }
   redrawTextBuf();
+  if (WINDEBUG) Debug::cprintf("resize pos: %d r: %d c: %d h: %d w: %d cRow: %d cCol: %d\n",pos,r,c,h,w,cRow,cCol);
 }
 void Window::resize(Layout* l) {
   resize(l->r, l->c, l->h, l->w);
@@ -156,6 +173,7 @@ void Window::redrawTextBuf() {
   // TODO: make it draw lines longer than width
   int i = 1, j = 0;
   int maxHeight = full ? height : cRow + 1;
+  //int maxHeight = full ? height : (cRow + 1 > height) ? height : cRow + 1;
   for (i = 1; i < maxHeight; i++) {
     j = 0;
     for (; j < width; j++) {
@@ -164,6 +182,9 @@ void Window::redrawTextBuf() {
       uint8_t color = textBuf->data[realRow][j][1];
       if (c == 0) break;
       put(i, j, c, color);
+    }
+    if (j == 0 || j == 1) {
+      if (WINDEBUG) Debug::cprintf("found row %d with width %d\n", i, j); 
     }
     for (;j<width;j++) put(i, j, ' ', bg, fg);
   }

@@ -85,6 +85,7 @@ public:
     void resize(Layout* layout);
     void resize(int r, int c, int h, int w);
     void redrawTextBuf();
+    void debug();
 };
    
 #endif
