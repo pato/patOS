@@ -157,8 +157,13 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
     case 501: /* win_color(int color) */
         {
           int color = (int)a0;
-          WindowManager::wm->currentWindow()->setFgColor(color);
-          return 0;
+          return WindowManager::wm->currentWindow()->setFgColor(color);
+        }
+    case 502: /*win_cursor(int r, int c) */
+        {
+          int r = (int)a0;
+          int c = (int)a1;
+          return WindowManager::wm->currentWindow()->cursor(r, c);
         }
     default:
         Process::trace("syscall(%d,%d,%d)",num,a0,a1);

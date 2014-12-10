@@ -63,7 +63,6 @@ private:
     void put(int r, int c, char ch);
     void put(int r, int c, char ch, int color);
     void put(int r, int c, char ch, int bg, int fg);
-    void cursor(int r, int c);
     void drawTitle();
     bool boundCheck(int r, int c);
 public:
@@ -76,11 +75,12 @@ public:
     void seek(int r, int c);
     void write(char c);
     void drawCursor();
+    long cursor(int r, int c);
     void drawTitle(int n);
     void updatePos(int p);
     void write(const char* c);
     void writeLine(bool wrap);
-    void setFgColor(int color);
+    long setFgColor(int color);
     void resize(Layout* layout);
     void resize(int r, int c, int h, int w);
     void redrawTextBuf();

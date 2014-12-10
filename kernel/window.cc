@@ -90,9 +90,10 @@ void Window::put(int r, int c, char ch) {
   this->vga.put(this->row + r, this->column + c, ch, this->bg, this->fg); 
 }
 
-void Window::cursor(int r, int c) {
-  if (!boundCheck(r, c)) return;
+long Window::cursor(int r, int c) {
+  if (!boundCheck(r, c)) return -1;
   this->vga.cursor(this->row + r, this->column + c, this->bg, this->fg);
+  return 0;
 }
 
 void Window::updatePos(int p) {
@@ -116,9 +117,10 @@ void Window::write(char c) {
   }
 }
 
-void Window::setFgColor(int color) {
-  if (color > 15 || color < 0) return;
+long Window::setFgColor(int color) {
+  if (color > 15 || color < 0) return -1;
   fg = color;
+  return color;
 }
 
 void Window::drawCursor() {
