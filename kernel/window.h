@@ -75,6 +75,7 @@ public:
     void fill(char c);
     void seek(int r, int c);
     void write(char c);
+    void drawCursor();
     void drawTitle(int n);
     void updatePos(int p);
     void write(const char* c);

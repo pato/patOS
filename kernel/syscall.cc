@@ -146,7 +146,6 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
            * Need to make dying process release focus
            * Sometimes windows draw more than they should (especially whenveer there are 3 vertical windows)
            * someitmes windows dont show as typing (especially with 3)
-           * move cursor to focused window
            */
           return Keyboard::is->get();
         }

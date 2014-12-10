@@ -1,7 +1,7 @@
 #include "windowmanager.h"
 
 #define MAXWINDOWS 6
-#define DEBUGON 0
+#define DEBUGON 1
 
 Layout*** WindowManager::layouts;
 Window* WindowManager::backdrop;
@@ -44,7 +44,7 @@ void giveFocus(Window* win) {
 void WindowManager::shiftFocus(int window) {
   if (DEBUGON) Debug::cprintf("---shiftFocus(%d)\n", window);
   int winCount = windowMap.getSize();
-  if (window < winCount) return;
+  if (window > winCount) return;
 
   //if (DEBUGON) Debug::cprintf("winCount: %d\n", winCount);
   windowMap.lock();
@@ -56,6 +56,7 @@ void WindowManager::shiftFocus(int window) {
     
     if (window == curr->value->pos) {
       giveFocus(curr->value);
+      curr->value->drawCursor();
       if (DEBUGON) Debug::cprintf("::giveFocus(%d)\n", i);
     } else {
       resetFocus(curr->value);

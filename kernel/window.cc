@@ -116,6 +116,10 @@ void Window::write(char c) {
   }
 }
 
+void Window::drawCursor() {
+  cursor(cRow, cCol);
+}
+
 void Window::writeLine(bool wrap) {
   if (!wrap) textBuf->writeLine(); // if it's a real line break, write it to text buffer
   if (cRow + 1 > (height - 1)) {
