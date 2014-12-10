@@ -140,12 +140,6 @@ extern "C" long syscallHandler(uint32_t* context, long num, long a0, long a1) {
     case 14: /* getchar */
         {
           WindowManager::wm->currentWindow()->focus->wait();
-          /*
-           * TODO:
-           * Problems:
-           * Sometimes windows draw more than they should (especially whenveer there are 3 vertical windows)
-           * someitmes windows dont show as typing (especially with 3)
-           */
           return Keyboard::is->get();
         }
     case 500: /* win_req */
