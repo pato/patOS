@@ -3,7 +3,6 @@
 
 extern long win_req(char* name);
 extern long win_color(int color);
-extern long win_draw(char*** buf);
 extern long win_cursor(int r, int c);
 extern long win_clear();
 extern long win_height();
