@@ -68,6 +68,35 @@ void WindowManager::shiftFocus(int window) {
   if (DEBUGON) Debug::cprintf("---done shiftFocus\n");
 }
 
+void WindowManager::removeWindow(int processId) {
+  Window* window = windowMap.get(processId);
+  if (!window) Debug::panic("trying to remove a nonexistant window. pid: %d", processId);
+  windowMap.remove(processId);
+  delete window;
+  redrawWindows(true);
+  giveFocus(windowMap.head->value);
+}
+
+void WindowManager::redrawWindows(bool reset) {
+  backdrop->clear();
+
+  windowMap.lock();
+  int winCount = windowMap.getSize();
+  if (winCount == MAXWINDOWS) Debug::panic("Maximum windows reached");
+
+  MapNode<Window>* curr = windowMap.head;
+  int i = 0;
+  for (; curr != nullptr; i++) {
+    if (i >= winCount) Debug::panic("found more windows than winCount while iterating");
+
+    curr->value->updatePos(i+1);
+    curr->value->resize(layouts[winCount][i]);
+    if (reset) resetFocus(curr->value);
+    curr = curr->next;
+  }
+  windowMap.unlock();
+}
+
 void WindowManager::addWindow(const char* name, int fg) {
   addWindow(name, DEFAULTBG, fg);
 }

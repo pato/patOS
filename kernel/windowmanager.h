@@ -19,6 +19,8 @@ class WindowManager {
     static void init();
     Window* currentWindow();
     void shiftFocus(int window);
+    void redrawWindows(bool reset);
+    void removeWindow(int processId);
     void addWindow(const char* name, int fg);
     void addWindow(const char* name, int bg, int fg);
 };
