@@ -5,8 +5,10 @@
 int main(int argc, char** argv) {
   win_req((char*)"Welcome");
   puts("\n\n\n\n\n");
+  win_color(RED);
   puts("             Welcome to");
   puts("\n");
+  win_color(GREEN);
   puts(" mmmmm           m     mmmm   mmmm");
   puts("\n");
   puts(" #   \"#  mmm   mm#mm  m\"  \"m #\"   \"");
@@ -18,6 +20,7 @@ int main(int argc, char** argv) {
   puts(" #      \"mm\"#    \"mm   #mm#  \"mmm#\"");
   puts("\n");
   puts("\n");
+  win_color(RED);
   puts("             NextGen OS");
   puts("\n");
   puts("\n");
