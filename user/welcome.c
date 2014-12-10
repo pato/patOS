@@ -19,5 +19,8 @@ int main(int argc, char** argv) {
   puts("\n");
   puts("\n");
   puts("             NextGen OS");
-  while (1) {};
+  puts("\n");
+  puts("\n");
+  gets();
+  return 0;
 }
