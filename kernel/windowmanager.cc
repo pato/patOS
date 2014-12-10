@@ -65,6 +65,7 @@ void WindowManager::shiftFocus(int window) {
     curr = curr->next;
   }
   windowMap.unlock();
+  Keyboard::bb->put('\1');
   if (DEBUGON) Debug::cprintf("---done shiftFocus\n");
 }
 
@@ -134,7 +135,6 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
 
   windowMap.add(id, newWin);
 
-  //Keyboard::is->get()
   Keyboard::bb->put('\1');
 
   newWin->drawCursor();
