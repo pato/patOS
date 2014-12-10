@@ -10,6 +10,7 @@
 #include "fs.h"
 #include "err.h"
 #include "libk.h"
+#include "windowmanager.h"
 
 /* global process declarations */
 Debug* Process::DEBUG;                       // the debug channel
@@ -104,14 +105,18 @@ Process::Process(const char* name, Table *resources_) :
 }
 
 Process::~Process() {
-    if (stack) {
-        delete[] (stack - FUDGE);
-        stack = 0;
-    }
-    if (resources) {
-        Resource::unref(resources);
-        resources = nullptr;
-    }
+  // if the current process had a window
+  if (WindowManager::wm->windowMap.contains(id)) { 
+    WindowManager::wm->removeWindow(id);
+  }
+  if (stack) {
+    delete[] (stack - FUDGE);
+    stack = 0;
+  }
+  if (resources) {
+    Resource::unref(resources);
+    resources = nullptr;
+  }
 }
 
 void Process::start() {
