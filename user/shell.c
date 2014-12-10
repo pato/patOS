@@ -82,12 +82,16 @@ void testSplit() {
 int main() {
   win_req("super shell");
   while (1) {
-    puts("shell> ");
+    win_color(LIGHT_GREEN);
+    puts("shell>");
+    win_color(WHITE);
+    puts(" ");
     char* in = gets();
     char** argv = splitArgs(in);
     if (argv[0] == nullptr) continue;
     int disown = 0;
     if (strcmp("exit", argv[0]) == 0) {
+      win_color(RED);
       puts("Exiting...");
       exit(0);
     } else if (strcmp("shell", argv[0]) == 0) {
@@ -97,13 +101,19 @@ int main() {
     if (pid) {
       if (disown) {
         close(pid);
+        win_color(CYAN);
         puts("Child disowned\n");
+        win_color(WHITE);
       } else {
         int eCode = join(pid);
         if (eCode == ERR_EXEC_NOT_FOUND) {
+          win_color(RED);
           notFound(argv[0]);
+          win_color(WHITE);
         } else if (eCode == ERR_FILE_NOT_FOUND) {
+          win_color(RED);
           fileNotFound(argv[0], argv[1]);
+          win_color(WHITE);
         }
       }
     } else {
