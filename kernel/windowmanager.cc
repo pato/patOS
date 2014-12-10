@@ -1,7 +1,7 @@
 #include "windowmanager.h"
 
 #define MAXWINDOWS 6
-#define DEBUGON 1
+#define DEBUGON 0
 
 Layout*** WindowManager::layouts;
 Window* WindowManager::backdrop;
