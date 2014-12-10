@@ -1,13 +1,12 @@
 #include "kbd.h"
 #include "machine.h"
-#include "bb.h"
 #include "debug.h"
 #include "windowmanager.h"
 
 int shift = 0;
 
 InputStream<char> *Keyboard::is;
-BB<char> *bb;
+BB<char> *Keyboard::bb;
 
 void Keyboard::init() {
     bb = new BB<char>(100);

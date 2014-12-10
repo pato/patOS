@@ -133,4 +133,9 @@ void WindowManager::addWindow(const char* name, int bg, int fg) {
   newWin->focus->signal();
 
   windowMap.add(id, newWin);
+
+  //Keyboard::is->get()
+  Keyboard::bb->put('\1');
+
+  newWin->drawCursor();
 }

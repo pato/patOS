@@ -3,6 +3,7 @@
 
 #include "map.h"
 #include "layout.h"
+#include "kbd.h"
 
 #define DEFAULTBG VGA::BLUE
 

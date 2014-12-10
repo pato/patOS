@@ -26,6 +26,8 @@ char* gets() {
             p[i--] = 127;
             continue;
           }
+        } else if (c == '\1') {
+          continue;
         } else {
           putchar(c);
         }
