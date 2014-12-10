@@ -170,7 +170,7 @@ void Window::resize(Layout* l) {
 
 void Window::redrawTextBuf() {
   clear();
-  // TODO: make it draw lines longer than width
+  // IMPROVE: make it draw lines longer than width
   int i = 1, j = 0;
   int maxHeight = full ? height : cRow + 1;
   //int maxHeight = full ? height : (cRow + 1 > height) ? height : cRow + 1;

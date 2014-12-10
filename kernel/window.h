@@ -22,11 +22,11 @@ struct TextBuffer {
     col = 0;
   }
   void write(char ch, int bg, int fg) {
-    if (col < MAXCOLS) {
+    if (col < BUFFERWIDTH) {
       data[row][col][0] = ch;
       data[row][col][1] = Frame::attrs(bg, fg);
       col++;
-    } // TODO: deal with else, might want to support longer lines, but can also define as limitation
+    }
   }
   void writeLine() { // only real line breaks
     data[row][col][0] = '\0';

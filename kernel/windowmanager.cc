@@ -30,7 +30,7 @@ Window* WindowManager::currentWindow() {
 
 void resetFocus(Window* win) {
   if (win->focus->isSignaled()) {
-    /* TODO: may need to revisit the event signal because it may not be thread safe */
+    /* may need to revisit the event signal because it may not be thread safe */
     delete win->focus;
     win->focus = new Event();
     if (DEBUGON) Debug::cprintf("resetFocus---\n");
