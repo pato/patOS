@@ -43,6 +43,10 @@ size, location, and position. It also handles resizing and scrolling of the
 contents of the window. This is powered by a backing TextBuffer. The window is what
 makes the drawing calls to the VGA driver.
 
+Windows are considered to be a per-process resource, with the exception that
+children will share their parent's window unless they request their own.
+Although they share it, the children cannot close the parent's window.
+
 ### TextBuffer
 
 Stores the characters and metadata in a buffer that's twice as big as the
@@ -225,4 +229,6 @@ to draw a welcome message to screen
 
 ### Clear program
 
-
+In order to demonstrate the `win_height` syscall, I also wrote a simple clear
+program that gets the current window size and prints that number of new lines
+to clear the current shell.
