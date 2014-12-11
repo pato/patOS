@@ -35,11 +35,14 @@
 <ul>
 <li>Dual output driver</li>
 <li>Backspace support</li>
+<li>Upgraded shell</li>
+<li>Welcome program</li>
 </ul>
 <h1 id="window-manager">Window Manager</h1>
 <p>The dynamic tiling window manager (dtwm) is tasked with managing the resource of windows, and abstracting away the positioning and actions on all the windows as a whole. It provides abstractions to add windows and remove windows. It is backed by a map from process ids to Window objects, where it stores the windows that are currently open. In addition to the window map, it keeps of track of what the current layout is.</p>
 <h2 id="window">Window</h2>
 <p>Manages the screen resources and creates abstractions for writing to the screen and moving the cursor around. The window stores metadata such as the title, size, location, and position. It also handles resizing and scrolling of the contents of the window. This is powered by a backing TextBuffer. The window is what makes the drawing calls to the VGA driver.</p>
+<p>Windows are considered to be a per-process resource, with the exception that children will share their parent's window unless they request their own. Although they share it, the children cannot close the parent's window.</p>
 <h3 id="textbuffer">TextBuffer</h3>
 <p>Stores the characters and metadata in a buffer that's twice as big as the biggest window possible (80x25). It provides abstractions for writing to the buffer, as well as accessing data within the buffer, especially accessing data relative to the window size (eg: getting the correct 10 lines after the resized to a height of 10).</p>
 <h2 id="layouts">Layouts</h2>
@@ -98,5 +101,28 @@
 <p>The rules of focus are: 1. The program can run until it requires input without focus 2. Forking and executing a program that uses a window gives up your focus 3. Whenever a process with a window exits focus is given to the first window 4. Focus can be preempted by the user</p>
 <p>To implement the fourth rule I mapped the Function keys (F1-F6) to switch focus to their corresponding windows. So pressing F1 switches focus to the first window, etc... This gives the user control over where the input goes. In order to inform the user of how to focus on windows, the window number is displayed with the title. Switching focus to a non-existant window does nothing.</p>
 <p>Focus is represented with the blinking cursor on the screen. Switching focus to a given window will move the cursor to the correct position within that window (where it last was before the window lost focus).</p>
+<h2 id="keyboard-driver">Keyboard Driver</h2>
+<p>In order to compliment the support for the VGA, I also implemented a full keyboard driver, with support for all alphanumeric characters, as well as punctuation and extra characters. Finally I also added support for the function keys which serve as a way of selecting which window has focus.</p>
+<h2 id="libwin---user-library">Libwin - User Library</h2>
+<p>In order to expose all the features of my window manager and graphical support to user programs, I created libwin, an accompany user library. Distributed as a header file and assembly implementation, it allows user programs to interact with the window system.</p>
+<p>The list of system calls is as follows:</p>
+<p><code>win_req(const char* name)</code></p>
+<p>Request a window with the specified name</p>
+<p><code>win_color(int color)</code></p>
+<p>Set the foreground color for subsequent text (16 bit color code)</p>
+<p><code>win_cursor(int r, int c)</code></p>
+<p>Draw the cursor</p>
+<p><code>win_clear()</code></p>
+<p>Clear your window</p>
+<p><code>win_height()</code></p>
+<p>Get your window height</p>
+<p><code>win_width()</code></p>
+<p>Get your window width</p>
+<h3 id="upgraded-shell">Upgraded Shell</h3>
+<p>As an example of how easy it is to incorporate the window system into existing user-level applications, I demonstrated an upgraded version of our shell. By calling <code>win_req(&quot;shell&quot;)</code> at the start of main, the system will create a window for the shell and automatically route all outcoming characters to the correct window. Including the headers and adding that line are the only modifications required to fully support the window system. However, I also added colored output using the <code>win_color</code> system call, to differentiate between the shell prompt, user input, informational output, and errors. Additionally, I modified the shell to spawn and disown additional shells as well as added the ability to exit a shell.</p>
+<h3 id="welcome-program">Welcome Program</h3>
+<p>As another example of the versatility of the user library and window program I wrote another demo program which uses the <code>win_req</code> and <code>win_color</code> system calls to draw a welcome message to screen</p>
+<h3 id="clear-program">Clear program</h3>
+<p>In order to demonstrate the <code>win_height</code> syscall, I also wrote a simple clear program that gets the current window size and prints that number of new lines to clear the current shell.</p>
 </body>
 </html>
