@@ -23,6 +23,8 @@ Team Members: Patricio Lankenau
 ### Extra Features
 * Dual output driver
 * Backspace support
+* Upgraded shell
+* Welcome program
 
 # Window Manager
 
@@ -164,6 +166,63 @@ a given window will move the cursor to the correct position within that window
 
 ## Keyboard Driver
 
-In order to compliment the support for the VGA, I also implemented a full keyboard
-driver, with support for all alphanumeric characters, as well as well as punctuation
-and extra characters.
+In order to compliment the support for the VGA, I also implemented a full
+keyboard driver, with support for all alphanumeric characters, as well as
+punctuation and extra characters. Finally I also added support for the function
+keys which serve as a way of selecting which window has focus.
+
+## Libwin - User Library 
+
+In order to expose all the features of my window manager and graphical support
+to user programs, I created libwin, an accompany user library. Distributed as a
+header file and assembly implementation, it allows user programs to interact
+with the window system.
+
+The list of system calls is as follows:
+
+`win_req(const char* name)`
+
+Request a window with the specified name
+
+`win_color(int color)`
+
+Set the foreground color for subsequent text (16 bit color code)
+
+`win_cursor(int r, int c)`
+
+Draw the cursor
+
+`win_clear()`
+
+Clear your window
+
+`win_height()`
+
+Get your window height
+
+`win_width()`
+
+Get your window width
+
+### Upgraded Shell
+
+As an example of how easy it is to incorporate the window system into existing
+user-level applications, I demonstrated an upgraded version of our shell. By
+calling `win_req("shell")` at the start of main, the system will create a
+window for the shell and automatically route all outcoming characters to the
+correct window. Including the headers and adding that line are the only
+modifications required to fully support the window system. However, I also
+added colored output using the `win_color` system call, to differentiate
+between the shell prompt, user input, informational output, and errors.
+Additionally, I modified the shell to spawn and disown additional shells as
+well as added the ability to exit a shell.
+
+### Welcome Program
+
+As another example of the versatility of the user library and window program I
+wrote another demo program which uses the `win_req` and `win_color` system calls
+to draw a welcome message to screen
+
+### Clear program
+
+
