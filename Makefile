@@ -9,6 +9,10 @@ runC : all
 runX: all
 	qemu-system-x86_64 -hdc kernel/kernel.img -hdd fat439/user.img
 
+report: REPORT.md
+	pandoc REPORT.md --self-contained -t html5 > report.html
+	xdg-open report.html
+
 test : all
 	make -C kernel kernel.img
 	@echo "\nit will take 20-30 seconds for the following command to run\n"
