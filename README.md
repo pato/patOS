@@ -1,7 +1,10 @@
 PatOS - Graphical Interface and Tiling Window Manager
 =============================================
 
-Team Members: Patricio Lankenau
+# Screenshots
+
+![Welcome](screenshots/welcome.png)
+![Splits](screenshots/split.png)
 
 ### Main Features
 * Dynamic Tiling Window Manager
