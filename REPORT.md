@@ -232,3 +232,12 @@ to draw a welcome message to screen
 In order to demonstrate the `win_height` syscall, I also wrote a simple clear
 program that gets the current window size and prints that number of new lines
 to clear the current shell.
+
+### Dual Output Driver
+
+Because the windows are very small, and it can confusing to combine debug
+output with window output, I created a dual output driver. This means that
+output from user programs and `Debug::printf` go to the current window, but
+output from `Debug::cprintf` goes to the serial output. This makes it much
+easier to debug because debug output goes to the serial and program output goes
+to the VGA driver.

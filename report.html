@@ -124,5 +124,7 @@
 <p>As another example of the versatility of the user library and window program I wrote another demo program which uses the <code>win_req</code> and <code>win_color</code> system calls to draw a welcome message to screen</p>
 <h3 id="clear-program">Clear program</h3>
 <p>In order to demonstrate the <code>win_height</code> syscall, I also wrote a simple clear program that gets the current window size and prints that number of new lines to clear the current shell.</p>
+<h3 id="dual-output-driver">Dual Output Driver</h3>
+<p>Because the windows are very small, and it can confusing to combine debug output with window output, I created a dual output driver. This means that output from user programs and <code>Debug::printf</code> go to the current window, but output from <code>Debug::cprintf</code> goes to the serial output. This makes it much easier to debug because debug output goes to the serial and program output goes to the VGA driver.</p>
 </body>
 </html>
