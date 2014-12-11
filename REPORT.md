@@ -161,3 +161,9 @@ with the title.  Switching focus to a non-existant window does nothing.
 Focus is represented with the blinking cursor on the screen. Switching focus to
 a given window will move the cursor to the correct position within that window
 (where it last was before the window lost focus).
+
+## Keyboard Driver
+
+In order to compliment the support for the VGA, I also implemented a full keyboard
+driver, with support for all alphanumeric characters, as well as well as punctuation
+and extra characters.
