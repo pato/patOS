@@ -3,7 +3,10 @@ PatOS - Graphical Interface and Tiling Window Manager
 
 # Screenshots
 
+The welcome program
 ![Welcome](screenshots/welcome.png)
+
+Five way window split
 ![Splits](screenshots/split.png)
 
 ### Main Features
