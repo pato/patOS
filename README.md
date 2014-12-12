@@ -151,7 +151,7 @@ screen at once, we had to introduce the concept of focus. Focus represents the
 currently running window, in other words the window that gets to print things
 to the screen and gets the input from the keyboard. This is extremely crucial
 because without out all windows would "fight" for the keyboard input and
-potentially also draw thigns wrong on the screen. In order to solve this
+potentially also draw things wrong on the screen. In order to solve this
 problem, I added a focus event to every window. Whenever a program tries to get
 input, the process will first wait on the focus event. That way, if the window
 has focus, it can continue to get input from the keyboard while all other
@@ -168,7 +168,7 @@ To implement the fourth rule I mapped the Function keys (F1-F6) to switch focus
 to their corresponding windows.  So pressing F1 switches focus to the first
 window, etc... This gives the user control over where the input goes.  In order
 to inform the user of how to focus on windows, the window number is displayed
-with the title.  Switching focus to a non-existant window does nothing.
+with the title.  Switching focus to a non-existent window does nothing.
 
 Focus is represented with the blinking cursor on the screen. Switching focus to
 a given window will move the cursor to the correct position within that window
