@@ -24,6 +24,8 @@ int main(int argc, char** argv) {
   puts("             NextGen OS");
   puts("\n");
   puts("\n");
+  win_color(WHITE);
+  puts("   Press enter to return to shell");
   gets();
   return 0;
 }
