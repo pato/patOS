@@ -3,6 +3,19 @@ PatOS - Graphical Interface and Tiling Window Manager
 
 Team Members: Patricio Lankenau
 
+### Running the code
+
+`make runX` to run PatOS using the graphical mode (preferred and supported way of running)
+`make run` to run PatOS using ncurses mode (do not use)
+`make runC` to run PatOS with dual output (using X and serial) (not necessary)
+
+Once inside you are presented with the shell
+
+You can use the shell as normal, with the additions of `shell` to spwan a new shell,
+`clear` to clear the current window, and `exit` to exit the current window.
+
+Exiting all shells will leave the system idle.
+
 ### Main Features
 * Dynamic Tiling Window Manager
   * Secure window abstraction
@@ -145,7 +158,7 @@ screen at once, we had to introduce the concept of focus. Focus represents the
 currently running window, in other words the window that gets to print things
 to the screen and gets the input from the keyboard. This is extremely crucial
 because without out all windows would "fight" for the keyboard input and
-potentially also draw thigns wrong on the screen. In order to solve this
+potentially also draw things wrong on the screen. In order to solve this
 problem, I added a focus event to every window. Whenever a program tries to get
 input, the process will first wait on the focus event. That way, if the window
 has focus, it can continue to get input from the keyboard while all other
@@ -162,7 +175,7 @@ To implement the fourth rule I mapped the Function keys (F1-F6) to switch focus
 to their corresponding windows.  So pressing F1 switches focus to the first
 window, etc... This gives the user control over where the input goes.  In order
 to inform the user of how to focus on windows, the window number is displayed
-with the title.  Switching focus to a non-existant window does nothing.
+with the title.  Switching focus to a non-existent window does nothing.
 
 Focus is represented with the blinking cursor on the screen. Switching focus to
 a given window will move the cursor to the correct position within that window
@@ -241,3 +254,26 @@ output from user programs and `Debug::printf` go to the current window, but
 output from `Debug::cprintf` goes to the serial output. This makes it much
 easier to debug because debug output goes to the serial and program output goes
 to the VGA driver.
+
+## Challenges Encountered
+
+I encountered many challenges while working on my problem. Starting with the
+fact that I vastly underestimated the amount of work and time required to
+accomplish what I wanted to do. I was expecting to work around 20-30 hours, and
+ended up working for more than 60 hours. Granted, I really find what I was
+working on interesting so it was easy for me to spend the time, but I should
+have planned and estimated better.
+
+Some of the harder technical problems I ran into dealt with creating dynamic
+layouts for the window manager. I struggled with coming up with the
+mathematical equations to model the window positions and sizes, and then with
+how to efficiently store and use them. Eventually I solved it using the
+`Layout***` to store them by window number.
+
+Another hard technical problem I encountered was how to deal with focus. I had
+underestimated how nuanced a lot of the scenarios were, and it was tricky to
+come up with ways to trade focus and grant it without deadlocking the system.
+
+Most of my other issues dealt with things I hadn't considered when I thought of
+the project such as writing good keyboard drivers, finding efficient ways to
+debug code, and coming up with ways of testing my code.
